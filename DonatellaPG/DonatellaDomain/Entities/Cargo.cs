@@ -12,5 +12,7 @@ namespace DonatellaDomain.Entities
         [Key]
         public virtual int CargoId { get; set; }
         public virtual string NomeCargo { get; set; }
+
+        public virtual ICollection<Funcionario> Funcionarios { get; set; }
     }
 }

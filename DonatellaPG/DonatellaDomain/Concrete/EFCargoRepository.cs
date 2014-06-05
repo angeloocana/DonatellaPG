@@ -21,7 +21,7 @@ namespace DonatellaDomain.Concrete
             get { return _dbContext.Cargos; }
         }
 
-        public void SalvarCargo(Cargo cargo)
+        public void Salvar(Cargo cargo)
         {
             var dbCargo = cargo.CargoId == 0 ? new Cargo()
                 : _dbContext.Cargos.Find(cargo.CargoId);
@@ -34,6 +34,18 @@ namespace DonatellaDomain.Concrete
             if (dbCargo.CargoId == 0)
                 _dbContext.Cargos.Add(dbCargo);
 
+            _dbContext.SaveChanges();
+        }
+
+        public void Excluir(int cargoId)
+        {
+            var cargo = _dbContext.Cargos.Find(cargoId);
+            if (cargo == null) throw new Exception("Cargo não existe!");
+
+            if (cargo.Funcionarios.Any())
+                throw new Exception("Cargo não pode ser excluido, pois possui funcionarios vinculados!");
+
+            _dbContext.Cargos.Remove(cargo);
             _dbContext.SaveChanges();
         }
     }

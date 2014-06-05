@@ -8,39 +8,39 @@ using DonatellaDomain.Entities;
 
 namespace DonatellaAdmin.Controllers
 {
-    public class CategoriaController : Controller
+    public class CargoController : Controller
     {
-        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly ICargoRepository _cargoRepository;
 
-        public CategoriaController(ICategoriaRepository categoriaRepository)
+        public CargoController(ICargoRepository cargoRepository)
         {
-            _categoriaRepository = categoriaRepository;
+            _cargoRepository = cargoRepository;
         }
-
+        
         public ActionResult Index()
         {
-            return View("Categorias", _categoriaRepository.Categorias);
+            return View("Cargos", _cargoRepository.Cargos);
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var categoria = id > 0 ? _categoriaRepository.Categorias.FirstOrDefault(c => c.CategoriaId == id)
-                : new Categoria();
+            var cargo = id > 0 ? _cargoRepository.Cargos.FirstOrDefault(c => c.CargoId == id)
+                : new Cargo();
 
-            if (categoria != null) return View("Categoria", categoria);
+            if (cargo != null) return View("Cargo", cargo);
 
-            TempData["Alerta"] = "Categoria não encontrada!";
+            TempData["Alerta"] = "Cargo não encontrado!";
             return RedirectToAction("Index");
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Editar(Categoria categoria)
+        public ActionResult Editar(Cargo cargo)
         {
-            var alerta = "Categoria não encontrada!";
+            var alerta = "Cargo não encontrado!";
             try
             {
-                _categoriaRepository.Salvar(categoria);
+                _cargoRepository.Salvar(cargo);
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace DonatellaAdmin.Controllers
         {
             try
             {
-                _categoriaRepository.Excluir(id);
+                _cargoRepository.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

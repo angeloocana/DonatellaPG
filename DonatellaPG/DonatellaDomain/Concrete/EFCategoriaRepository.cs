@@ -40,8 +40,12 @@ namespace DonatellaDomain.Concrete
         public void Excluir(int categoriaId)
         {
             var categoria = _dbContext.Categorias.Find(categoriaId);
-            if (categoria != null)
-                _dbContext.Categorias.Remove(categoria);
+            if (categoria == null) throw new Exception("Categoria não existe!");
+
+            if (categoria.Produtos.Any())
+                throw new Exception("Categoria não pode ser excluida, pois possui produtos vinculados!");
+
+            _dbContext.Categorias.Remove(categoria);
             _dbContext.SaveChanges();
         }
     }

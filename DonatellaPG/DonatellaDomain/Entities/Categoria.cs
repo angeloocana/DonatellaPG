@@ -12,5 +12,7 @@ namespace DonatellaDomain.Entities
         [Key]
         public virtual int CategoriaId { get; set; }
         public virtual string Nome { get; set; }
+
+        public virtual ICollection<Produto> Produtos { get; set; } 
     }
 }
