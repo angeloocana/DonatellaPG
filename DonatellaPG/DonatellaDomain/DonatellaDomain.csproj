@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DE6B9C37-738E-4C64-A113-61AA1EBA92C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DonatellaDomain</RootNamespace>
+    <AssemblyName>DonatellaDomain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\ICargoRepository.cs" />
+    <Compile Include="Abstract\ICategoriaRepository.cs" />
+    <Compile Include="Abstract\IEstoqueRepository.cs" />
+    <Compile Include="Abstract\IFormaDePagamentoRepository.cs" />
+    <Compile Include="Abstract\IFornecedorRepository.cs" />
+    <Compile Include="Abstract\IFuncionarioRepository.cs" />
+    <Compile Include="Abstract\IIngredienteRepository.cs" />
+    <Compile Include="Abstract\IPedidoRepository.cs" />
+    <Compile Include="Abstract\IProdutoRepository.cs" />
+    <Compile Include="Concrete\Criptografia.cs" />
+    <Compile Include="Concrete\EFCategoriaRepository.cs" />
+    <Compile Include="Concrete\EFEstoqueRepository.cs" />
+    <Compile Include="Concrete\EFFormaDePagamentoRepository.cs" />
+    <Compile Include="Concrete\EFFornecedorRepository.cs" />
+    <Compile Include="Concrete\EFIngredienteRepository.cs" />
+    <Compile Include="Concrete\EFPedidoRepository.cs" />
+    <Compile Include="Concrete\EFProdutoRepository.cs" />
+    <Compile Include="Concrete\EFCargoRepository.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EFFuncionarioRepository.cs" />
+    <Compile Include="Entities\FuncionarioPermissao.cs" />
+    <Compile Include="Entities\Permissao.cs" />
+    <Compile Include="Entities\Cargo.cs" />
+    <Compile Include="Entities\Funcionario.cs" />
+    <Compile Include="Entities\IngredienteFornecedor.cs" />
+    <Compile Include="Entities\Estoque.cs" />
+    <Compile Include="Entities\Fornecedor.cs" />
+    <Compile Include="Entities\Ingrediente.cs" />
+    <Compile Include="Entities\Categoria.cs" />
+    <Compile Include="Entities\Carrinho.cs" />
+    <Compile Include="Entities\ProdutoIngrediente.cs" />
+    <Compile Include="Entities\PedidoProduto.cs" />
+    <Compile Include="Entities\Produto.cs" />
+    <Compile Include="Entities\Pedido.cs" />
+    <Compile Include="Entities\FormaDePagamento.cs" />
+    <Compile Include="Entities\Cliente.cs" />
+    <Compile Include="Entities\StatusPedido.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

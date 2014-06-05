@@ -48,7 +48,7 @@ namespace DonatellaPG.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
-                    await SignInAsync(user, model.RememberMe);
+                    await SignInAsync(user, false);
                     return RedirectToLocal(returnUrl);
                 }
                 else
