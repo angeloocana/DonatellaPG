@@ -14,7 +14,7 @@ namespace DonatellaDomain.Entities
         public virtual Funcionario Funcionario { get; set; }
 
         public virtual Permissao Permissao { get; set; }
-
+        [Required]
         public virtual DateTime DataInclusao { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace DonatellaDomain.Entities
         public virtual int Mesa { get; set; }
         public virtual Produto Produto { get; set; }
         public virtual int Quantidade { get; set; }
+        [StringLength(250)]
         public virtual string Obs { get; set; }
     }
 }

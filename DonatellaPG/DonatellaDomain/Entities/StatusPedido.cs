@@ -10,6 +10,8 @@ namespace DonatellaDomain.Entities
     public class StatusPedido
     {
         public virtual int StatusPedidoId { get; set; }
+        [StringLength(50)]
+        [Required]
         public virtual string Status { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model DonatellaAdmin.Models.FuncionarioViewModel
+﻿@using DonatellaDomain.Entities
+@model DonatellaAdmin.Models.FuncionarioViewModel
 
 @{
     ViewBag.Title = "Funcionario";
@@ -30,6 +31,125 @@
                                 @Html.ValidationMessageFor(model => model.Funcionario.NomeFuncionario)
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">CPF</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.CPF, new { @class = "form-control", placeholder = "CPF" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.CPF)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Email, new { @class = "form-control", placeholder = "Email" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Email)
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Senha</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
+                                @Html.ValidationMessageFor(model => model.Senha)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone" class="col-lg-2 control-label">Telefone</label>
+                            <div class="col-lg-10 form-inline">
+                                @Html.TextBoxFor(model => model.Funcionario.TelefoneDDD, new { @class = "form-control", style = "width: 15%", placeholder = "DDD" })
+                                @Html.TextBoxFor(model => model.Funcionario.Telefone, new { @class = "form-control", style = "width: 50%", placeholder = "Telefone" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.TelefoneDDD)
+                                @Html.ValidationMessageFor(model => model.Funcionario.Telefone)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="celular" class="col-lg-2 control-label">Celular</label>
+                            <div class="col-lg-10 form-inline">
+                                @Html.TextBoxFor(model => model.Funcionario.CelularDDD, new { @class = "form-control", style = "width: 15%", placeholder = "DDD" })
+                                @Html.TextBoxFor(model => model.Funcionario.Celular, new { @class = "form-control", style = "width: 50%", placeholder = "Celular" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.CelularDDD)
+                                @Html.ValidationMessageFor(model => model.Funcionario.Celular)
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">CEP</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.CEP, new { @class = "form-control", placeholder = "CEP" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.CEP)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Endereço</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Endereco, new { @class = "form-control", placeholder = "Endereço" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Endereco)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Numero</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Numero, new { @class = "form-control", placeholder = "Numero" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Numero)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Complemento</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Complemento, new { @class = "form-control", placeholder = "Complemento" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Complemento)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Bairro</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Bairro, new { @class = "form-control", placeholder = "Bairro" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Bairro)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Cidade</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Cidade, new { @class = "form-control", placeholder = "Cidade" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Cidade)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Estado</label>
+                            <div class="col-lg-10">
+                                @Html.TextBoxFor(model => model.Funcionario.Estado, new { @class = "form-control", style = "width: 15%", placeholder = "Estado" })
+                                @Html.ValidationMessageFor(model => model.Funcionario.Estado)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-lg-2 control-label">Permissões</label>
+                            <div class="col-lg-10">
+                                @foreach (var permissao in Enum.GetValues(typeof(Permissao)).Cast<Permissao>())
+                                {
+                                    <div class="checkbox">
+                                        <label>
+
+                                            <input type="checkbox" name="Permissoes" value="@permissao" />
+                                            @Html.DisplayName(permissao.ToString())
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
                                 <button type="submit" class="btn btn-default">Salvar</button>

@@ -13,6 +13,7 @@ namespace DonatellaDomain.Entities
         public virtual int ProdutoIngredienteId { get; set; }
         public virtual Produto Produto { get; set; }
         public virtual Ingrediente Ingrediente { get; set; }
+        [Required]
         public virtual decimal Quantidade { get; set; }
     }
 }

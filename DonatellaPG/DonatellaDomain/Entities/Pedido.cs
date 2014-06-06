@@ -11,12 +11,15 @@ namespace DonatellaDomain.Entities
     {
         [Key]
         public virtual int PedidoId { get; set; }
+        [Required]
         public virtual DateTime Data { get; set; }
+        [Required]
         public virtual decimal ValorTotal { get; set; }
         public virtual FormaDePagamento FormaDePagamento { get; set; }
         public virtual Cliente Cliente { get; set; }
-        public virtual int Mesa { get; set; }
+        public virtual int? Mesa { get; set; }
+        [Required]
         public virtual StatusPedido Status { get; set; }
-        public virtual int NotaAvaliacao { get; set; }
+        public virtual int? NotaAvaliacao { get; set; }
     }
 }

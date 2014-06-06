@@ -14,7 +14,7 @@ namespace DonatellaDomain.Entities
         public virtual Ingrediente Ingrediente { get; set; }
         
         public virtual Fornecedor Fornecedor { get; set; }
-        
+        [Required]
         public virtual DateTime DataInclusao { get; set; }
     }
 }

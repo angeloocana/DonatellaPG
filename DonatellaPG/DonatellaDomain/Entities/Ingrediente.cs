@@ -11,6 +11,8 @@ namespace DonatellaDomain.Entities
     {
         [Key]
         public virtual int IngredienteId { get; set; }
+        [StringLength(150)]
+        [Required]
         public virtual string NomeIngrediente { get; set; }
     }
 }
