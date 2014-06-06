@@ -10,7 +10,10 @@ namespace DonatellaDomain.Abstract
     public interface IFuncionarioRepository
     {
         IQueryable<Funcionario> Funcionarios { get; }
-        void SalvarFuncionario(Funcionario funcionario);
+        void Salvar(Funcionario funcionario, string senha, IEnumerable<Permissao> permissoes);
         Funcionario ValidarLogin(string login, string senha);
+        void AlterarSenha(int funcionarioId, string senha);
+
+        void Excluir(int funcionarioId);
     }
 }

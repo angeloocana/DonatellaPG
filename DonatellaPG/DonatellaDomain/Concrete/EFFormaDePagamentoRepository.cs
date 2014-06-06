@@ -21,7 +21,7 @@ namespace DonatellaDomain.Concrete
             get { return _dbContext.FormasDePagamento; }
         }
 
-        public void SalvarFormaDePagamento(FormaDePagamento formaDePagamento)
+        public void Salvar(FormaDePagamento formaDePagamento)
         {
             var dbFormaDePagamento = formaDePagamento.FormaDePagamentoId == 0 ? new FormaDePagamento()
                 : _dbContext.FormasDePagamento.Find(formaDePagamento.FormaDePagamentoId);
@@ -35,6 +35,17 @@ namespace DonatellaDomain.Concrete
             if (dbFormaDePagamento.FormaDePagamentoId == 0)
                 _dbContext.FormasDePagamento.Add(dbFormaDePagamento);
 
+            _dbContext.SaveChanges();
+        }
+        public void Excluir(int formaDePagamentoId)
+        {
+            var formaDePagamento = _dbContext.FormasDePagamento.Find(formaDePagamentoId);
+            if (formaDePagamento == null) throw new Exception("Forma de pagamento não existe!");
+
+            if (formaDePagamento.Pedidos.Any())
+                throw new Exception("Forma de pagamento não pode ser excluida, pois possui pedidos vinculados!");
+
+            _dbContext.FormasDePagamento.Remove(formaDePagamento);
             _dbContext.SaveChanges();
         }
     }

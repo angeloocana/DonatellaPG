@@ -11,6 +11,8 @@ namespace DonatellaDomain.Entities
     {
         [Key]
         public virtual int CategoriaId { get; set; }
+
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public virtual string Nome { get; set; }
 
         public virtual ICollection<Produto> Produtos { get; set; } 

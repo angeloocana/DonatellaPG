@@ -37,17 +37,19 @@ namespace DonatellaAdmin.Controllers
         [HttpPost]
         public ActionResult Editar(Cargo cargo)
         {
-            var alerta = "Cargo não encontrado!";
+            if (!ModelState.IsValid)
+                return View("Cargo", cargo);
+
             try
             {
                 _cargoRepository.Salvar(cargo);
             }
             catch (Exception ex)
             {
-                alerta = ex.Message;
+                TempData["Alerta"] = ex.Message;
+                return View("Cargo", cargo);
             }
 
-            TempData["Alerta"] = alerta;
             return RedirectToAction("Index");
         }
 

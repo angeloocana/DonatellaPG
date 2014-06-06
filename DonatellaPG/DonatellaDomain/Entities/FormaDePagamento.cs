@@ -11,7 +11,10 @@ namespace DonatellaDomain.Entities
     {
         [Key]
         public virtual int FormaDePagamentoId { get; set; }
+        [Required(ErrorMessage = "Campo obrigatório!")]
         public virtual string Descricao { get; set; }
         public virtual bool Ativo { get; set; }
+
+        public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }

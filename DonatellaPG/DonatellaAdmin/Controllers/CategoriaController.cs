@@ -37,17 +37,19 @@ namespace DonatellaAdmin.Controllers
         [HttpPost]
         public ActionResult Editar(Categoria categoria)
         {
-            var alerta = "Categoria não encontrada!";
+            if(!ModelState.IsValid)
+                return View("Categoria", categoria);
+
             try
             {
                 _categoriaRepository.Salvar(categoria);
             }
             catch (Exception ex)
             {
-                alerta = ex.Message;
+                TempData["Alerta"] = ex.Message;
+                return View("Categoria", categoria);
             }
 
-            TempData["Alerta"] = alerta;
             return RedirectToAction("Index");
         }
 

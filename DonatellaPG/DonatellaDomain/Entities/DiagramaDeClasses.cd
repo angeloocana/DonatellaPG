@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="DonatellaDomain.Entities.Cargo" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Cargo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Carrinho" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACCAAAAAAAAAAJAABAAQAAAAAAE=</HashCode>
+      <FileName>Entities\Carrinho.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Categoria" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEA=</HashCode>
+      <FileName>Entities\Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Cliente" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAggCBAAAAAABAAAACAACAAAAAAAAAAAAkBEIg=</HashCode>
+      <FileName>Entities\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Estoque" Collapsed="true">
+    <Position X="4.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAACAAAAACAAAAABAAAAASAAAAAAA=</HashCode>
+      <FileName>Entities\Estoque.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.FormaDePagamento" Collapsed="true">
+    <Position X="6" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAABAAAAAAEAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Entities\FormaDePagamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Fornecedor" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAghCBAAAAAEAEAAACAEAAIAAAAAAAAAAgBEIg=</HashCode>
+      <FileName>Entities\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Funcionario" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAggCBAAAAAAAAAAACAACAAAAAAIAAAAAgFEIg=</HashCode>
+      <FileName>Entities\Funcionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.FuncionarioPermissao" Collapsed="true">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoAAQAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\FuncionarioPermissao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Ingrediente" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Ingrediente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.IngredienteFornecedor" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAABAAACAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Entities\IngredienteFornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Pedido">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAEAAAAAIAAAACAAIAIAAAAAJAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Pedido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.PedidoProduto" Collapsed="true">
+    <Position X="4.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAEAACAAAAAAAAAAAAAAAAAQIIAAAAE=</HashCode>
+      <FileName>Entities\PedidoProduto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.Produto" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAEAAEIAAA=</HashCode>
+      <FileName>Entities\Produto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.ProdutoIngrediente" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAQAAAAAAE=</HashCode>
+      <FileName>Entities\ProdutoIngrediente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonatellaDomain.Entities.StatusPedido" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\StatusPedido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DonatellaDomain.Entities.Permissao" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAAIAIAAA=</HashCode>
+      <FileName>Entities\Permissao.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

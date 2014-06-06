@@ -6,6 +6,8 @@ namespace DonatellaDomain.Abstract
     public interface IFormaDePagamentoRepository
     {
         IQueryable<FormaDePagamento> FormaDePagamentos { get; }
-        void SalvarFormaDePagamento(FormaDePagamento formaDePagamento);
+        void Salvar(FormaDePagamento formaDePagamento);
+
+        void Excluir(int formaDePagamentoId);
     }
 }

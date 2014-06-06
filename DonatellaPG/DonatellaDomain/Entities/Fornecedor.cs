@@ -26,5 +26,7 @@ namespace DonatellaDomain.Entities
         public virtual string Cidade { get; set; }
         public virtual string Estado { get; set; }
         public virtual string CEP { get; set; }
+
+        public virtual string Complemento { get; set; }
     }
 }

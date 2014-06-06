@@ -176,6 +176,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FuncionarioController.cs" />
+    <Compile Include="Controllers\FormaDePagamentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -183,8 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="infrastructure\NinjectControllerFactory.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\FuncionarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -227,9 +228,14 @@
     <Content Include="Views\Categoria\Categoria.cshtml" />
     <Content Include="Views\Cargo\Cargo.cshtml" />
     <Content Include="Views\Cargo\Cargos.cshtml" />
+    <Content Include="Views\FormaDePagamento\FormaDePagamento.cshtml" />
+    <Content Include="Views\FormaDePagamento\FormasDePagamento.cshtml" />
+    <Content Include="Views\Funcionario\Funcionario.cshtml" />
+    <Content Include="Views\Funcionario\Funcionarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="imagens\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
