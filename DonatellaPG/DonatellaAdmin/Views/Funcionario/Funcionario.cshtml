@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label for="nome" class="col-lg-2 control-label">Senha</label>
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
+                                @Html.PasswordFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
                                 @Html.ValidationMessageFor(model => model.Senha)
                             </div>
                         </div>
@@ -60,8 +60,8 @@
                         <div class="form-group">
                             <label for="telefone" class="col-lg-2 control-label">Telefone</label>
                             <div class="col-lg-10 form-inline">
-                                @Html.TextBoxFor(model => model.Funcionario.TelefoneDDD, new { @class = "form-control", style = "width: 15%", placeholder = "DDD" })
-                                @Html.TextBoxFor(model => model.Funcionario.Telefone, new { @class = "form-control", style = "width: 50%", placeholder = "Telefone" })
+                                @Html.TextBoxFor(model => model.Funcionario.TelefoneDDD, new { @class = "form-control", style = "width: 15%; max-width: 70px; min-width: 40px;", placeholder = "DDD" })
+                                @Html.TextBoxFor(model => model.Funcionario.Telefone, new { @class = "form-control", style = "width: 50%; max-width: 210px; min-width: 185px;", placeholder = "Telefone" })
                                 @Html.ValidationMessageFor(model => model.Funcionario.TelefoneDDD)
                                 @Html.ValidationMessageFor(model => model.Funcionario.Telefone)
                             </div>
@@ -70,8 +70,8 @@
                         <div class="form-group">
                             <label for="celular" class="col-lg-2 control-label">Celular</label>
                             <div class="col-lg-10 form-inline">
-                                @Html.TextBoxFor(model => model.Funcionario.CelularDDD, new { @class = "form-control", style = "width: 15%", placeholder = "DDD" })
-                                @Html.TextBoxFor(model => model.Funcionario.Celular, new { @class = "form-control", style = "width: 50%", placeholder = "Celular" })
+                                @Html.TextBoxFor(model => model.Funcionario.CelularDDD, new { @class = "form-control", style = "width: 15%; max-width: 70px; min-width: 40px;", placeholder = "DDD" })
+                                @Html.TextBoxFor(model => model.Funcionario.Celular, new { @class = "form-control", style = "width: 50%; max-width: 210px; min-width: 185px;", placeholder = "Celular" })
                                 @Html.ValidationMessageFor(model => model.Funcionario.CelularDDD)
                                 @Html.ValidationMessageFor(model => model.Funcionario.Celular)
                             </div>
@@ -142,20 +142,35 @@
                                     <div class="checkbox">
                                         <label>
 
-                                            <input type="checkbox" name="Permissoes" value="@permissao" />
-                                            @Html.DisplayName(permissao.ToString())
+                                            <input type="checkbox" @(Model.Permissoes.Contains(permissao) ? "checked='checked'" : "") name="Permissoes" value="@permissao" />
+                                            @{
+                                    var description = DonatellaAdmin.infrastructure.EnumHelper<Permissao>.GetDisplayValue(permissao);
+                                    @Html.DisplayFor(d => description)
+                                            }
                                         </label>
                                     </div>
                                 }
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="nome" class="col-lg-2 control-label">Ativo</label>
+                                <div class="col-lg-10">
 
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-2">
-                                <button type="submit" class="btn btn-default">Salvar</button>
-                            </div>
-                        </div>
-                    </fieldset>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.Funcionario.Ativo)
+                                            Ativo
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-default">Salvar</button>
+                                    </div>
+                                </div>
+                        </fieldset>
                 }
             </div>
         </div>

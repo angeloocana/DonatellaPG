@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DonatellaAdmin.infrastructure;
 using DonatellaAdmin.Models;
 using DonatellaDomain.Abstract;
 using DonatellaDomain.Entities;
 
 namespace DonatellaAdmin.Controllers
 {
+    [CustomAuthorize]
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioRepository _funcionarioRepository;
@@ -17,7 +19,7 @@ namespace DonatellaAdmin.Controllers
         {
             _funcionarioRepository = funcionarioRepository;
         }
-        
+
         public ActionResult Index()
         {
             return View("Funcionarios", _funcionarioRepository.Funcionarios);
@@ -32,7 +34,10 @@ namespace DonatellaAdmin.Controllers
             {
                 var model = new FuncionarioViewModel()
                 {
-                    Funcionario = funcionario
+                    Funcionario = funcionario,
+                    Permissoes = funcionario.Permissoes == null
+                        ? new List<Permissao>()
+                        : funcionario.Permissoes.Select(p => p.Permissao)
                 };
                 return View("Funcionario", model);
             }
@@ -43,19 +48,19 @@ namespace DonatellaAdmin.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Editar(FuncionarioViewModel funcionario)
+        public ActionResult Editar(FuncionarioViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("Funcionario", funcionario);
-            
+                return View("Funcionario", model);
+
             try
             {
-                _funcionarioRepository.Salvar(funcionario.Funcionario, funcionario.Senha,funcionario.Permissoes);
+                _funcionarioRepository.Salvar(model.Funcionario, model.Senha, model.Permissoes);
             }
             catch (Exception ex)
             {
                 TempData["Alerta"] = ex.Message;
-                return View("Funcionario", funcionario);
+                return View("Funcionario", model);
             }
 
             return RedirectToAction("Index");

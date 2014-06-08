@@ -46,7 +46,7 @@ namespace DonatellaDomain.Concrete
             dbFuncionario.Ativo = funcionario.Ativo;
 
             if (!string.IsNullOrEmpty(senha))
-                dbFuncionario.Senha = Criptografia.Criptografar(senha, dbFuncionario.Email);
+                dbFuncionario.Senha = Criptografia.Criptografar(senha, dbFuncionario.CPF);
 
             if (dbFuncionario.FuncionarioId == 0)
                 _dbContext.Funcionarios.Add(dbFuncionario);
@@ -58,13 +58,16 @@ namespace DonatellaDomain.Concrete
 
         private void SalvarPermissoes(Funcionario dbFuncionario, IEnumerable<Permissao> permissoes)
         {
-            var dbPermissoes = dbFuncionario.Permissoes.ToList();
-            if (dbPermissoes.Any())
+            if (dbFuncionario.Permissoes != null)
             {
-                foreach (var permissao in dbPermissoes)
-                    _dbContext.FuncionariosPermissoes.Remove(permissao);
+                var dbPermissoes = dbFuncionario.Permissoes.ToList();
+                if (dbPermissoes.Any())
+                {
+                    foreach (var permissao in dbPermissoes)
+                        _dbContext.FuncionariosPermissoes.Remove(permissao);
 
-                _dbContext.SaveChanges();
+                    _dbContext.SaveChanges();
+                }
             }
 
             if (permissoes == null || !permissoes.Any()) return;
@@ -81,7 +84,8 @@ namespace DonatellaDomain.Concrete
 
         public Funcionario ValidarLogin(string login, string senha)
         {
-            throw new NotImplementedException();
+            var senhaCriptografada = Criptografia.Criptografar(senha, login);
+            return _dbContext.Funcionarios.FirstOrDefault(f => f.Ativo && f.CPF == login && f.Senha == senhaCriptografada);
         }
 
         public void AlterarSenha(int funcionarioId, string senha)
@@ -90,7 +94,7 @@ namespace DonatellaDomain.Concrete
             if (funcionario == null)
                 throw new Exception("Funcionario não existe!");
 
-            funcionario.Senha = Criptografia.Criptografar(senha, funcionario.Email);
+            funcionario.Senha = Criptografia.Criptografar(senha, funcionario.CPF);
             _dbContext.SaveChanges();
         }
 
@@ -99,6 +103,7 @@ namespace DonatellaDomain.Concrete
             var funcionario = _dbContext.Funcionarios.Find(funcionarioId);
             if (funcionario == null) throw new Exception("Funcionario não existe!");
 
+            _dbContext.FuncionariosPermissoes.RemoveRange(funcionario.Permissoes);
             _dbContext.Funcionarios.Remove(funcionario);
             _dbContext.SaveChanges();
         }

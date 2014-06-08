@@ -40,18 +40,20 @@
                             <th>Nome</th>
                             <th>Email</th>
                             <th>Telefone</th>
+                            <th>Ativo</th>
                             <th></th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.NomeFuncionario)
+                                    @Html.DisplayFor(x => item.NomeFuncionario)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
+                                    @Html.DisplayFor(x => item.Email)
                                 </td>
                                 <td>
                                     @item.TelefoneDDD
@@ -59,6 +61,7 @@
                                     @item.CelularDDD
                                     @item.Celular
                                 </td>
+                                <td>@Html.DisplayFor(x => item.Ativo)</td>
                                 <td>
                                     @Html.ActionLink("Editar", "Editar", new { id = item.FuncionarioId }) |
                                     <a href="javaScript:void(0);" onclick="excluirFuncionario(@item.FuncionarioId, this);">Excluir</a>

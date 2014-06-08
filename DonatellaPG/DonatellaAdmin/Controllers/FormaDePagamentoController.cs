@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DonatellaAdmin.infrastructure;
 using DonatellaDomain.Abstract;
 using DonatellaDomain.Entities;
 
 namespace DonatellaAdmin.Controllers
 {
+    [CustomAuthorize]
     public class FormaDePagamentoController : Controller
     {
         private readonly IFormaDePagamentoRepository _formaDePagamentoRepository;

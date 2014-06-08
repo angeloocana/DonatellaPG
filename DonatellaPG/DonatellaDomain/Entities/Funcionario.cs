@@ -67,5 +67,6 @@ namespace DonatellaDomain.Entities
         public bool Ativo { get; set; }
 
         public virtual ICollection<FuncionarioPermissao> Permissoes { get; set; }
+
     }
 }
