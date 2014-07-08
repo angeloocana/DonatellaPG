@@ -23,119 +23,119 @@
                     <fieldset>
                         <legend>Funcionario</legend>
                         @Html.ValidationSummary(true)
-                        @Html.HiddenFor(model => model.Funcionario.FuncionarioId)
+                        @Html.HiddenFor(m => m.Funcionario.FuncionarioId)
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Nome</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.NomeFuncionario)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.NomeFuncionario, new { @class = "form-control", placeholder = "Funcionario" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.NomeFuncionario)
+                                @Html.EditorFor(m => m.Funcionario.NomeFuncionario)
+                                @Html.ValidationMessageFor(m => m.Funcionario.NomeFuncionario)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">CPF</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.CPF)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.CPF, new { @class = "form-control", placeholder = "CPF" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.CPF)
+                                @Html.EditorFor(m => m.Funcionario.CPF)
+                                @Html.ValidationMessageFor(m => m.Funcionario.CPF)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Email</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Email)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Email, new { @class = "form-control", placeholder = "Email" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Email)
+                                @Html.EditorFor(m => m.Funcionario.Email)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Email)
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Senha</label>
+                            @Html.BootStrapLabelFor(m => m.Senha)
                             <div class="col-lg-10">
-                                @Html.PasswordFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
-                                @Html.ValidationMessageFor(model => model.Senha)
+                                @Html.EditorFor(m => m.Senha)
+                                @Html.ValidationMessageFor(m => m.Senha)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="telefone" class="col-lg-2 control-label">Telefone</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Telefone)
                             <div class="col-lg-10 form-inline">
-                                @Html.TextBoxFor(model => model.Funcionario.TelefoneDDD, new { @class = "form-control", style = "width: 15%; max-width: 70px; min-width: 40px;", placeholder = "DDD" })
-                                @Html.TextBoxFor(model => model.Funcionario.Telefone, new { @class = "form-control", style = "width: 50%; max-width: 210px; min-width: 185px;", placeholder = "Telefone" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.TelefoneDDD)
-                                @Html.ValidationMessageFor(model => model.Funcionario.Telefone)
+                                @Html.EditorFor(m => m.Funcionario.TelefoneDDD)
+                                @Html.EditorFor(m => m.Funcionario.Telefone)
+                                @Html.ValidationMessageFor(m => m.Funcionario.TelefoneDDD)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Telefone)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="celular" class="col-lg-2 control-label">Celular</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Celular)
                             <div class="col-lg-10 form-inline">
-                                @Html.TextBoxFor(model => model.Funcionario.CelularDDD, new { @class = "form-control", style = "width: 15%; max-width: 70px; min-width: 40px;", placeholder = "DDD" })
-                                @Html.TextBoxFor(model => model.Funcionario.Celular, new { @class = "form-control", style = "width: 50%; max-width: 210px; min-width: 185px;", placeholder = "Celular" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.CelularDDD)
-                                @Html.ValidationMessageFor(model => model.Funcionario.Celular)
+                                @Html.EditorFor(m => m.Funcionario.CelularDDD)
+                                @Html.EditorFor(m => m.Funcionario.Celular)
+                                @Html.ValidationMessageFor(m => m.Funcionario.CelularDDD)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Celular)
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">CEP</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.CEP)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.CEP, new { @class = "form-control", placeholder = "CEP" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.CEP)
+                                @Html.EditorFor(m => m.Funcionario.CEP)
+                                @Html.ValidationMessageFor(m => m.Funcionario.CEP)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Endereço</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Endereco)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Endereco, new { @class = "form-control", placeholder = "Endereço" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Endereco)
+                                @Html.EditorFor(m => m.Funcionario.Endereco)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Endereco)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Numero</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Numero)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Numero, new { @class = "form-control", placeholder = "Numero" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Numero)
+                                @Html.EditorFor(m => m.Funcionario.Numero)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Numero)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Complemento</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Complemento)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Complemento, new { @class = "form-control", placeholder = "Complemento" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Complemento)
+                                @Html.EditorFor(m => m.Funcionario.Complemento)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Complemento)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Bairro</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Bairro)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Bairro, new { @class = "form-control", placeholder = "Bairro" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Bairro)
+                                @Html.EditorFor(m => m.Funcionario.Bairro)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Bairro)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Cidade</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Cidade)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Cidade, new { @class = "form-control", placeholder = "Cidade" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Cidade)
+                                @Html.EditorFor(m => m.Funcionario.Cidade)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Cidade)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Estado</label>
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Estado)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Funcionario.Estado, new { @class = "form-control", style = "width: 15%", placeholder = "Estado" })
-                                @Html.ValidationMessageFor(model => model.Funcionario.Estado)
+                                @Html.EditorFor(m => m.Funcionario.Estado)
+                                @Html.ValidationMessageFor(m => m.Funcionario.Estado)
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Permissões</label>
+                            @Html.BootStrapLabelFor(m => m.Permissoes)
                             <div class="col-lg-10">
                                 @foreach (var permissao in Enum.GetValues(typeof(Permissao)).Cast<Permissao>())
                                 {
@@ -151,26 +151,36 @@
                                     </div>
                                 }
                             </div>
-                            <div class="form-group">
-                                <label for="nome" class="col-lg-2 control-label">Ativo</label>
-                                <div class="col-lg-10">
+                        </div>
 
-                                    <div class="checkbox">
-                                        <label>
-                                            @Html.CheckBoxFor(m => m.Funcionario.Ativo)
-                                            Ativo
-                                            </label>
-                                        </div>
+                        <div class="form-group">
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Ativo)
+                            <div class="col-lg-10">
 
-                                    </div>
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.Funcionario.Ativo)
+                                        Ativo
+                                    </label>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        <button type="submit" class="btn btn-default">Salvar</button>
-                                    </div>
-                                </div>
-                        </fieldset>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.BootStrapLabelFor(m => m.Funcionario.Cargo.NomeCargo)
+                            <div class="col-lg-10">
+                                @Html.DropDownListFor(m => m.Funcionario.Cargo.CargoId, Model.Cargos, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Funcionario.Cargo.CargoId)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit" class="btn btn-default">Salvar</button>
+                            </div>
+                        </div>
+                    </fieldset>
                 }
             </div>
         </div>

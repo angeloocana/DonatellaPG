@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using DonatellaDomain.Entities;
 
 namespace DonatellaAdmin.Models
@@ -14,6 +15,8 @@ namespace DonatellaAdmin.Models
         [StringLength(50)]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
-        public IEnumerable<Permissao> Permissoes { get; set; } 
+        public IEnumerable<Permissao> Permissoes { get; set; }
+
+        public IEnumerable<SelectListItem> Cargos { get; set; } 
     }
 }

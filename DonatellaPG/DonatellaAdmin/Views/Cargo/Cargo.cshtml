@@ -22,12 +22,12 @@
                     <fieldset>
                         <legend>Cargo</legend>
                         @Html.ValidationSummary(true)
-                        @Html.HiddenFor(model => model.CargoId)
+                        @Html.HiddenFor(m => m.CargoId)
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Nome</label>
+                            @Html.BootStrapLabelFor(m => m.NomeCargo)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.NomeCargo, new { @class = "form-control", placeholder = "Cargo" })
-                                @Html.ValidationMessageFor(model => model.NomeCargo)
+                                @Html.EditorFor(m => m.NomeCargo)
+                                @Html.ValidationMessageFor(m => m.NomeCargo)
                             </div>
                         </div>
                         <div class="form-group">

@@ -22,19 +22,19 @@
                     @Html.AntiForgeryToken()
                     <fieldset>
                         <div class="form-group">
-                            <label for="cpf" class="col-lg-2 control-label">CPF</label>
+                            @Html.BootStrapLabelFor(m => m.CPF)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", placeholder = "CPF" })
+                                @Html.EditorFor(m => m.CPF)
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="senha" class="col-lg-2 control-label">Senha</label>
+                            @Html.BootStrapLabelFor(m => m.Senha)
                             <div class="col-lg-10">
-                                @Html.PasswordFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
+                                @Html.EditorFor(m => m.Senha)
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="captcha" class="col-lg-2 control-label">Captcha</label>
+                            @Html.BootStrapLabel("Captcha")
                             <div class="col-lg-10">
                                 @Html.Captcha("Tentar outra imagem", "Digite o texto que você vê acima:", 5, "Captcha é obrigatório!", false, null)
                             </div>
@@ -55,10 +55,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#CaptchaInputText').attr('class', 'form-control');
-    });
-</script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#CaptchaInputText').attr('class', 'form-control');
+        });
+    </script>
 }

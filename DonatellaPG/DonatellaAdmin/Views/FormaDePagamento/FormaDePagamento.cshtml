@@ -22,17 +22,17 @@
                     <fieldset>
                         <legend>Forma de pagamento</legend>
                         @Html.ValidationSummary(true)
-                        @Html.HiddenFor(model => model.FormaDePagamentoId)
+                        @Html.HiddenFor(m => m.FormaDePagamentoId)
                         <div class="form-group">
-                            <label for="nome" class="col-lg-2 control-label">Nome</label>
+                            @Html.BootStrapLabelFor(m => m.Descricao)
                             <div class="col-lg-10">
-                                @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control", placeholder = "Forma de pagamento" })
-                                @Html.ValidationMessageFor(model => model.Descricao)
+                                @Html.EditorFor(m => m.Descricao)
+                                @Html.ValidationMessageFor(m => m.Descricao)
                                 <div class="checkbox">
                                     <label>
-                                        @Html.CheckBoxFor(model => model.Ativo)
+                                        @Html.CheckBoxFor(m => m.Ativo)
                                         Ativo
-                                        @Html.ValidationMessageFor(model => model.Ativo)
+                                        @Html.ValidationMessageFor(m => m.Ativo)
                                     </label>
                                 </div>
                             </div>

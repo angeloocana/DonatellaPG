@@ -188,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BootStrapHelpers.cs" />
     <Compile Include="infrastructure\CustomAuthorizeAttribute.cs" />
     <Compile Include="infrastructure\CustomPrincipal.cs" />
     <Compile Include="infrastructure\EnumHelper.cs" />
@@ -243,6 +244,11 @@
     <Content Include="Views\Funcionario\Funcionario.cshtml" />
     <Content Include="Views\Funcionario\Funcionarios.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MediumString.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SmallString.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

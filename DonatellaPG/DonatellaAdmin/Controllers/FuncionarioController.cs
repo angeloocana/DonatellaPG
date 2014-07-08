@@ -14,10 +14,12 @@ namespace DonatellaAdmin.Controllers
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioRepository _funcionarioRepository;
+        private readonly ICargoRepository _cargoRepository;
 
-        public FuncionarioController(IFuncionarioRepository funcionarioRepository)
+        public FuncionarioController(IFuncionarioRepository funcionarioRepository, ICargoRepository cargoRepository)
         {
             _funcionarioRepository = funcionarioRepository;
+            _cargoRepository = cargoRepository;
         }
 
         public ActionResult Index()
@@ -32,12 +34,17 @@ namespace DonatellaAdmin.Controllers
 
             if (funcionario != null)
             {
+                if (funcionario.Cargo == null)
+                    funcionario.Cargo = new Cargo();
+
                 var model = new FuncionarioViewModel()
                 {
                     Funcionario = funcionario,
                     Permissoes = funcionario.Permissoes == null
                         ? new List<Permissao>()
-                        : funcionario.Permissoes.Select(p => p.Permissao)
+                        : funcionario.Permissoes.Select(p => p.Permissao),
+                    Cargos = _cargoRepository.Cargos.ToList().Select(c => 
+                        new SelectListItem() { Text = c.NomeCargo, Value = c.CargoId.ToString() })
                 };
                 return View("Funcionario", model);
             }
@@ -72,6 +79,7 @@ namespace DonatellaAdmin.Controllers
         {
             try
             {
+            
                 _funcionarioRepository.Excluir(id);
                 return "OK";
             }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE6B9C37-738E-4C64-A113-61AA1EBA92C2}</ProjectGuid>
+    <ProjectGuid>{F5DA40C8-1A87-4FB7-8210-BB8F613CA470}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DonatellaDomain</RootNamespace>
-    <AssemblyName>DonatellaDomain</AssemblyName>
+    <RootNamespace>Application</RootNamespace>
+    <AssemblyName>Application</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,15 +39,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\Criptografia.cs" />
+    <Compile Include="AppBase.cs" />
+    <Compile Include="Concrete\CargoApp.cs" />
+    <Compile Include="Concrete\CategoriaApp.cs" />
+    <Compile Include="Concrete\EstoqueApp.cs" />
+    <Compile Include="Concrete\FormaDePagamentoApp.cs" />
+    <Compile Include="Concrete\FornecedorApp.cs" />
+    <Compile Include="Concrete\FuncionarioApp.cs" />
+    <Compile Include="Concrete\IngredienteApp.cs" />
+    <Compile Include="Concrete\PedidoApp.cs" />
+    <Compile Include="Concrete\ProdutoApp.cs" />
+    <Compile Include="Interfaces\ICargoApp.cs" />
+    <Compile Include="Interfaces\ICategoriaApp.cs" />
+    <Compile Include="Interfaces\IEstoqueApp.cs" />
+    <Compile Include="Interfaces\IFormaDePagamentoApp.cs" />
+    <Compile Include="Interfaces\IFornecedorApp.cs" />
+    <Compile Include="Interfaces\IFuncionarioApp.cs" />
+    <Compile Include="Interfaces\IIngredienteApp.cs" />
+    <Compile Include="Interfaces\IPedidoApp.cs" />
+    <Compile Include="Interfaces\IProdutoApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{6afe542f-6cb2-4fa1-a46d-3c11f0bac188}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
