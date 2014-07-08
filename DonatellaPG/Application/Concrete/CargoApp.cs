@@ -5,27 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFCargoApp : ICargoApp
+    public class CargoApp : AppBase, ICargoApp
     {
-        private EFDbContext _dbContext;
-
-        public EFCargoApp()
+        private IRepositoryBase<Cargo> _cargoRepository;
+        public CargoApp(IRepositoryBase<Cargo> cargoRepository)
         {
-            _dbContext = new EFDbContext();
+            _cargoRepository = cargoRepository;
         }
-        public IQueryable<Cargo> Cargos
+        public IEnumerable<Cargo> Cargos
         {
-            get { return _dbContext.Cargos; }
+            get { return _cargoRepository.Get(); }
         }
 
         public void Salvar(Cargo cargo)
         {
+            BeginTransaction();
+
             var dbCargo = cargo.CargoId == 0 ? new Cargo()
-                : _dbContext.Cargos.Find(cargo.CargoId);
+                : _cargoRepository.Get(cargo.CargoId);
         
             if(dbCargo == null)
                 throw new Exception("Cargo não pode ser alterado, pois não existe no banco.");
@@ -33,21 +35,22 @@ namespace Application.Concrete
             dbCargo.NomeCargo = cargo.NomeCargo;
 
             if (dbCargo.CargoId == 0)
-                _dbContext.Cargos.Add(dbCargo);
+                _cargoRepository.Add(dbCargo);
 
-            _dbContext.SaveChanges();
+            Commint();
         }
 
         public void Excluir(int cargoId)
         {
-            var cargo = _dbContext.Cargos.Find(cargoId);
+            var cargo = _cargoRepository.Get(cargoId);
             if (cargo == null) throw new Exception("Cargo não existe!");
 
             if (cargo.Funcionarios.Any())
                 throw new Exception("Cargo não pode ser excluido, pois possui funcionarios vinculados!");
 
-            _dbContext.Cargos.Remove(cargo);
-            _dbContext.SaveChanges();
+            BeginTransaction();
+            _cargoRepository.Delete(cargo);
+            Commint();
         }
     }
 }

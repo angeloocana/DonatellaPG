@@ -4,29 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonatellaAdmin.infrastructure;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
 
 namespace DonatellaAdmin.Controllers
 {
     [CustomAuthorize]
     public class CargoController : Controller
     {
-        private readonly ICargoRepository _cargoRepository;
+        private readonly ICargoApp _cargoApp;
 
-        public CargoController(ICargoRepository cargoRepository)
+        public CargoController(ICargoApp cargoApp)
         {
-            _cargoRepository = cargoRepository;
+            _cargoApp = cargoApp;
         }
         
         public ActionResult Index()
         {
-            return View("Cargos", _cargoRepository.Cargos);
+            return View("Cargos", _cargoApp.Cargos);
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var cargo = id > 0 ? _cargoRepository.Cargos.FirstOrDefault(c => c.CargoId == id)
+            var cargo = id > 0 ? _cargoApp.Cargos.FirstOrDefault(c => c.CargoId == id)
                 : new Cargo();
 
             if (cargo != null) return View("Cargo", cargo);
@@ -44,7 +44,7 @@ namespace DonatellaAdmin.Controllers
 
             try
             {
-                _cargoRepository.Salvar(cargo);
+                _cargoApp.Salvar(cargo);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace DonatellaAdmin.Controllers
         {
             try
             {
-                _cargoRepository.Excluir(id);
+                _cargoApp.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

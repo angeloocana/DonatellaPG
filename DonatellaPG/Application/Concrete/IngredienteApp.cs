@@ -4,27 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Domain.Entities;
+using Domain.Interfaces;
 
 
 namespace Application.Concrete
 {
-    public class EFIngredienteApp : IIngredienteApp
+    public class IngredienteApp : AppBase, IIngredienteApp
     {
-        private EFDbContext _dbContext;
-
-        public EFIngredienteApp()
+        private IRepositoryBase<Ingrediente> _ingredienteRepository;
+        public IngredienteApp(IRepositoryBase<Ingrediente> ingredienteRepository)
         {
-            _dbContext = new EFDbContext();
+            _ingredienteRepository = ingredienteRepository;
         }
-        public IQueryable<Ingrediente> Ingredientes
+        public IEnumerable<Ingrediente> Ingredientes
         {
-            get { return _dbContext.Ingredientes; }
+            get { return _ingredienteRepository.Get(); }
         }
 
         public void SalvarIngrediente(Ingrediente ingrediente)
         {
+            BeginTransaction();
+
             var dbIngrediente = ingrediente.IngredienteId == 0 ? new Ingrediente()
-                : _dbContext.Ingredientes.Find(ingrediente.IngredienteId);
+                : _ingredienteRepository.Get(ingrediente.IngredienteId);
 
             if (dbIngrediente == null)
                 throw new Exception("Ingrediente não pode ser alterado, pois não existe no banco.");
@@ -32,9 +35,9 @@ namespace Application.Concrete
             dbIngrediente.NomeIngrediente = ingrediente.NomeIngrediente;
 
             if (dbIngrediente.IngredienteId == 0)
-                _dbContext.Ingredientes.Add(dbIngrediente);
+                _ingredienteRepository.Add(dbIngrediente);
 
-            _dbContext.SaveChanges();
+            Commint();
         }
     }
 }

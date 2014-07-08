@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Concrete;
+using Application.Interfaces;
+using Application.Concrete;
+using Domain.Interfaces;
+using Domain;
 
 namespace DonatellaAdmin.infrastructure
 {
@@ -29,15 +31,16 @@ namespace DonatellaAdmin.infrastructure
 
         private void AddBindings()
         {
-            ninjectKernel.Bind<ICargoRepository>().To<EFCargoRepository>();
-            ninjectKernel.Bind<ICategoriaRepository>().To<EFCategoriaRepository>();
-            ninjectKernel.Bind<IEstoqueRepository>().To<EFEstoqueRepository>();
-            ninjectKernel.Bind<IFormaDePagamentoRepository>().To<EFFormaDePagamentoRepository>();
-            ninjectKernel.Bind<IFornecedorRepository>().To<EFFornecedorRepository>();
-            ninjectKernel.Bind<IFuncionarioRepository>().To<EFFuncionarioRepository>();
-            ninjectKernel.Bind<IIngredienteRepository>().To<EFIngredienteRepository>();
-            ninjectKernel.Bind<IPedidoRepository>().To<EFPedidoRepository>();
-            ninjectKernel.Bind<IProdutoRepository>().To<EFProdutoRepository>();
+            ninjectKernel.Bind<ICargoApp>().To<CargoApp>();
+            ninjectKernel.Bind<ICategoriaApp>().To<CategoriaApp>();
+            ninjectKernel.Bind<IEstoqueApp>().To<EstoqueApp>();
+            ninjectKernel.Bind<IFormaDePagamentoApp>().To<FormaDePagamentoApp>();
+            ninjectKernel.Bind<IFornecedorApp>().To<FornecedorApp>();
+            ninjectKernel.Bind<IFuncionarioApp>().To<FuncionarioApp>();
+            ninjectKernel.Bind<IIngredienteApp>().To<IngredienteApp>();
+            ninjectKernel.Bind<IPedidoApp>().To<PedidoApp>();
+            ninjectKernel.Bind<IProdutoApp>().To<ProdutoApp>();
+            //ninjectKernel.Bind(typeof(IRepositoryBase<>)).To<IRepositoryBase>();
         }
     }
 }

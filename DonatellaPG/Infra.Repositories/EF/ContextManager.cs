@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace Infra.Repositories.EF
     public class ContextManager
     {
         private const string ContextKey = "Infra.Repositories.EF.ContextManager.Context";
-        public DbContext Context
+        public EFDbContext Context
         {
             get
             {

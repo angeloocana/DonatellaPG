@@ -4,27 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFFuncionarioApp : IFuncionarioApp
+    public class FuncionarioApp : AppBase, IFuncionarioApp
     {
-        private EFDbContext _dbContext;
-
-        public EFFuncionarioApp()
+        private IRepositoryBase<Funcionario> _funcionarioRepository;
+        private IRepositoryBase<Cargo> _cargoRepository;
+        public FuncionarioApp(IRepositoryBase<Funcionario> funcionarioRepository, IRepositoryBase<Cargo> cargoRepository)
         {
-            _dbContext = new EFDbContext();
+            _funcionarioRepository = funcionarioRepository;
+            _cargoRepository = cargoRepository;
         }
-        public IQueryable<Funcionario> Funcionarios
+        public IEnumerable<Funcionario> Funcionarios
         {
-            get { return _dbContext.Funcionarios; }
+            get { return _funcionarioRepository.Get(); }
         }
 
         public void Salvar(Funcionario funcionario, string senha, IEnumerable<Permissao> permissoes)
         {
+            BeginTransaction();
+
             var dbFuncionario = funcionario.FuncionarioId == 0 ? new Funcionario()
-                : _dbContext.Funcionarios.Find(funcionario.FuncionarioId);
+                : _funcionarioRepository.Get(funcionario.FuncionarioId);
 
             if (dbFuncionario == null)
                 throw new Exception("Funcionario não pode ser alterado, pois não existe no banco.");
@@ -44,69 +48,67 @@ namespace Application.Concrete
             dbFuncionario.Telefone = funcionario.Telefone;
             dbFuncionario.TelefoneDDD = funcionario.TelefoneDDD;
             dbFuncionario.Ativo = funcionario.Ativo;
-            dbFuncionario.Cargo = _dbContext.Cargos.FirstOrDefault(c => c.CargoId == funcionario.Cargo.CargoId);
+            dbFuncionario.Cargo = _cargoRepository.Get(funcionario.Cargo.CargoId);
 
-            if (!string.IsNullOrEmpty(senha))
-                dbFuncionario.Senha = Criptografia.Criptografar(senha, dbFuncionario.CPF);
+            //if (!string.IsNullOrEmpty(senha))
+            //    dbFuncionario.Senha = Criptografia.Criptografar(senha, dbFuncionario.CPF);
 
             if (dbFuncionario.FuncionarioId == 0)
-                _dbContext.Funcionarios.Add(dbFuncionario);
+                _funcionarioRepository.Add(dbFuncionario);
 
-            _dbContext.SaveChanges();
+            Commint();
 
             SalvarPermissoes(dbFuncionario, permissoes);
         }
 
         private void SalvarPermissoes(Funcionario dbFuncionario, IEnumerable<Permissao> permissoes)
         {
-            if (dbFuncionario.Permissoes != null)
+            if (dbFuncionario.Permissoes != null && dbFuncionario.Permissoes.Any())
             {
-                var dbPermissoes = dbFuncionario.Permissoes.ToList();
-                if (dbPermissoes.Any())
-                {
-                    foreach (var permissao in dbPermissoes)
-                        _dbContext.FuncionariosPermissoes.Remove(permissao);
-
-                    _dbContext.SaveChanges();
-                }
+                //_dbContext.FuncionariosPermissoes.RemoveRange(dbFuncionario.Permissoes);
+                //_dbContext.SaveChanges();
             }
 
-            if (permissoes == null || !permissoes.Any()) return;
-            foreach (var permissao in permissoes)
-                _dbContext.FuncionariosPermissoes.Add(new FuncionarioPermissao()
-                {
-                    DataInclusao = DateTime.Now,
-                    Funcionario = dbFuncionario,
-                    Permissao = permissao
-                });
+            //if (permissoes == null || !permissoes.Any()) return;
+            //foreach (var permissao in permissoes)
+            //    _dbContext.FuncionariosPermissoes.Add(new FuncionarioPermissao()
+            //    {
+            //        DataInclusao = DateTime.Now,
+            //        Funcionario = dbFuncionario,
+            //        Permissao = permissao
+            //    });
 
-            _dbContext.SaveChanges();
+            //_dbContext.SaveChanges();
         }
 
         public Funcionario ValidarLogin(string login, string senha)
         {
-            var senhaCriptografada = Criptografia.Criptografar(senha, login);
-            return _dbContext.Funcionarios.FirstOrDefault(f => f.Ativo && f.CPF == login && f.Senha == senhaCriptografada);
+            return _funcionarioRepository.First();
+            //var senhaCriptografada = Criptografia.Criptografar(senha, login);
+            //return _dbContext.Funcionarios.FirstOrDefault(f => f.Ativo && f.CPF == login && f.Senha == senhaCriptografada);
         }
 
         public void AlterarSenha(int funcionarioId, string senha)
         {
-            var funcionario = _dbContext.Funcionarios.Find(funcionarioId);
-            if (funcionario == null)
-                throw new Exception("Funcionario não existe!");
+            //var funcionario = _dbContext.Funcionarios.Find(funcionarioId);
+            //if (funcionario == null)
+            //    throw new Exception("Funcionario não existe!");
 
-            funcionario.Senha = Criptografia.Criptografar(senha, funcionario.CPF);
-            _dbContext.SaveChanges();
+            //funcionario.Senha = Criptografia.Criptografar(senha, funcionario.CPF);
+            //_dbContext.SaveChanges();
         }
 
         public void Excluir(int funcionarioId)
         {
-            var funcionario = _dbContext.Funcionarios.Find(funcionarioId);
+            BeginTransaction();
+
+            var funcionario = _funcionarioRepository.Get(funcionarioId);
             if (funcionario == null) throw new Exception("Funcionario não existe!");
 
-            _dbContext.FuncionariosPermissoes.RemoveRange(funcionario.Permissoes);
-            _dbContext.Funcionarios.Remove(funcionario);
-            _dbContext.SaveChanges();
+            //_dbContext.FuncionariosPermissoes.RemoveRange(funcionario.Permissoes);
+            _funcionarioRepository.Delete(funcionario);
+
+            Commint();
         }
     }
 }

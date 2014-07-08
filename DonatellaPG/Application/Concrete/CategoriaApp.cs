@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFCategoriaApp : ICategoriaApp
+    public class CategoriaApp : AppBase, ICategoriaApp
     {
-        private EFDbContext _dbContext;
-
-        public EFCategoriaApp()
+        private IRepositoryBase<Categoria> _categoriaRepository;
+        public CategoriaApp(IRepositoryBase<Categoria> categoriaRepository)
         {
-            _dbContext = new EFDbContext();
+            _categoriaRepository = categoriaRepository;
         }
-        public IQueryable<Categoria> Categorias
+        public IEnumerable<Categoria> Categorias
         {
-            get { return _dbContext.Categorias; }
+            get { return _categoriaRepository.Get(); }
         }
 
         public void Salvar(Categoria categoria)
         {
+            BeginTransaction();
+
             var dbCategoria = categoria.CategoriaId == 0 ? new Categoria()
-                : _dbContext.Categorias.Find(categoria.CategoriaId);
+                : _categoriaRepository.Get(categoria.CategoriaId);
 
             if (dbCategoria == null)
                 throw new Exception("Categoria não pode ser alterada, pois não existe no banco.");
@@ -32,21 +34,22 @@ namespace Application.Concrete
             dbCategoria.Nome = categoria.Nome;
 
             if (dbCategoria.CategoriaId == 0)
-                _dbContext.Categorias.Add(dbCategoria);
+                _categoriaRepository.Add(dbCategoria);
 
-            _dbContext.SaveChanges();
+            Commint();
         }
 
         public void Excluir(int categoriaId)
         {
-            var categoria = _dbContext.Categorias.Find(categoriaId);
+            var categoria = _categoriaRepository.Get(categoriaId);
             if (categoria == null) throw new Exception("Categoria não existe!");
 
             if (categoria.Produtos.Any())
                 throw new Exception("Categoria não pode ser excluida, pois possui produtos vinculados!");
 
-            _dbContext.Categorias.Remove(categoria);
-            _dbContext.SaveChanges();
+            BeginTransaction();
+            _categoriaRepository.Delete(categoria);
+            Commint();
         }
     }
 }

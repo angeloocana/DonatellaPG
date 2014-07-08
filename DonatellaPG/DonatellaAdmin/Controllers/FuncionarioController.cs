@@ -5,31 +5,32 @@ using System.Web;
 using System.Web.Mvc;
 using DonatellaAdmin.infrastructure;
 using DonatellaAdmin.Models;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
+
 
 namespace DonatellaAdmin.Controllers
 {
     [CustomAuthorize]
     public class FuncionarioController : Controller
     {
-        private readonly IFuncionarioRepository _funcionarioRepository;
-        private readonly ICargoRepository _cargoRepository;
+        private readonly IFuncionarioApp _funcionarioApp;
+        private readonly ICargoApp _cargoApp;
 
-        public FuncionarioController(IFuncionarioRepository funcionarioRepository, ICargoRepository cargoRepository)
+        public FuncionarioController(IFuncionarioApp funcionarioApp, ICargoApp cargoApp)
         {
-            _funcionarioRepository = funcionarioRepository;
-            _cargoRepository = cargoRepository;
+            _funcionarioApp = funcionarioApp;
+            _cargoApp = cargoApp;
         }
 
         public ActionResult Index()
         {
-            return View("Funcionarios", _funcionarioRepository.Funcionarios);
+            return View("Funcionarios", _funcionarioApp.Funcionarios);
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var funcionario = id > 0 ? _funcionarioRepository.Funcionarios.FirstOrDefault(c => c.FuncionarioId == id)
+            var funcionario = id > 0 ? _funcionarioApp.Funcionarios.FirstOrDefault(c => c.FuncionarioId == id)
                 : new Funcionario();
 
             if (funcionario != null)
@@ -43,7 +44,7 @@ namespace DonatellaAdmin.Controllers
                     Permissoes = funcionario.Permissoes == null
                         ? new List<Permissao>()
                         : funcionario.Permissoes.Select(p => p.Permissao),
-                    Cargos = _cargoRepository.Cargos.ToList().Select(c => 
+                    Cargos = _cargoApp.Cargos.ToList().Select(c => 
                         new SelectListItem() { Text = c.NomeCargo, Value = c.CargoId.ToString() })
                 };
                 return View("Funcionario", model);
@@ -62,7 +63,7 @@ namespace DonatellaAdmin.Controllers
 
             try
             {
-                _funcionarioRepository.Salvar(model.Funcionario, model.Senha, model.Permissoes);
+                _funcionarioApp.Salvar(model.Funcionario, model.Senha, model.Permissoes);
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace DonatellaAdmin.Controllers
             try
             {
             
-                _funcionarioRepository.Excluir(id);
+                _funcionarioApp.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

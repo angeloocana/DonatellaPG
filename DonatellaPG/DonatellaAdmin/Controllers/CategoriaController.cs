@@ -4,29 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonatellaAdmin.infrastructure;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
+
 
 namespace DonatellaAdmin.Controllers
 {
     [CustomAuthorize]
     public class CategoriaController : Controller
     {
-        private readonly ICategoriaRepository _categoriaRepository;
+        private readonly ICategoriaApp _categoriaApp;
 
-        public CategoriaController(ICategoriaRepository categoriaRepository)
+        public CategoriaController(ICategoriaApp categoriaApp)
         {
-            _categoriaRepository = categoriaRepository;
+            _categoriaApp = categoriaApp;
         }
 
         public ActionResult Index()
         {
-            return View("Categorias", _categoriaRepository.Categorias);
+            return View("Categorias", _categoriaApp.Categorias);
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var categoria = id > 0 ? _categoriaRepository.Categorias.FirstOrDefault(c => c.CategoriaId == id)
+            var categoria = id > 0 ? _categoriaApp.Categorias.FirstOrDefault(c => c.CategoriaId == id)
                 : new Categoria();
 
             if (categoria != null) return View("Categoria", categoria);
@@ -44,7 +45,7 @@ namespace DonatellaAdmin.Controllers
 
             try
             {
-                _categoriaRepository.Salvar(categoria);
+                _categoriaApp.Salvar(categoria);
             }
             catch (Exception ex)
             {
@@ -61,7 +62,7 @@ namespace DonatellaAdmin.Controllers
         {
             try
             {
-                _categoriaRepository.Excluir(id);
+                _categoriaApp.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Application
 {

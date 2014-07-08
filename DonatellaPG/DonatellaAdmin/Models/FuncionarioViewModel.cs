@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DonatellaDomain.Entities;
+using Domain.Entities;
 
 namespace DonatellaAdmin.Models
 {

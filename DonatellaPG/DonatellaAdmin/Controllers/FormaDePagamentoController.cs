@@ -4,29 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonatellaAdmin.infrastructure;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
+
 
 namespace DonatellaAdmin.Controllers
 {
     [CustomAuthorize]
     public class FormaDePagamentoController : Controller
     {
-        private readonly IFormaDePagamentoRepository _formaDePagamentoRepository;
+        private readonly IFormaDePagamentoApp _formaDePagamentoApp;
 
-        public FormaDePagamentoController(IFormaDePagamentoRepository formaDePagamentoRepository)
+        public FormaDePagamentoController(IFormaDePagamentoApp formaDePagamentoApp)
         {
-            _formaDePagamentoRepository = formaDePagamentoRepository;
+            _formaDePagamentoApp = formaDePagamentoApp;
         }
         
         public ActionResult Index()
         {
-            return View("FormasDePagamento", _formaDePagamentoRepository.FormaDePagamentos);
+            return View("FormasDePagamento", _formaDePagamentoApp.FormaDePagamentos);
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var formaDePagamento = id > 0 ? _formaDePagamentoRepository.FormaDePagamentos.FirstOrDefault(c => c.FormaDePagamentoId == id)
+            var formaDePagamento = id > 0 ? _formaDePagamentoApp.FormaDePagamentos.FirstOrDefault(c => c.FormaDePagamentoId == id)
                 : new FormaDePagamento();
 
             if (formaDePagamento != null) return View("FormaDePagamento", formaDePagamento);
@@ -44,7 +45,7 @@ namespace DonatellaAdmin.Controllers
 
             try
             {
-                _formaDePagamentoRepository.Salvar(formaDePagamento);
+                _formaDePagamentoApp.Salvar(formaDePagamento);
             }
             catch (Exception ex)
             {
@@ -61,7 +62,7 @@ namespace DonatellaAdmin.Controllers
         {
             try
             {
-                _formaDePagamentoRepository.Excluir(id);
+                _formaDePagamentoApp.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

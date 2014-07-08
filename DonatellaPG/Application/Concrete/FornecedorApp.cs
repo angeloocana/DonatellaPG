@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFFornecedorApp : IFornecedorApp
+    public class FornecedorApp : AppBase, IFornecedorApp
     {
-        private EFDbContext _dbContext;
-
-        public EFFornecedorApp()
+        private IRepositoryBase<Fornecedor> _fornecedorRepository;
+        public FornecedorApp(IRepositoryBase<Fornecedor> fornecedorRepository)
         {
-            _dbContext = new EFDbContext();
+            _fornecedorRepository = fornecedorRepository;
         }
-        public IQueryable<Fornecedor> Fornecedores
+        public IEnumerable<Fornecedor> Fornecedores
         {
-            get { return _dbContext.Fornecedores; }
+            get { return _fornecedorRepository.Get(); }
         }
 
         public void SalvarFornecedor(Fornecedor fornecedor)
         {
+            BeginTransaction();
+
             var dbFornecedor = fornecedor.FornecedorId == 0 ? new Fornecedor()
-                : _dbContext.Fornecedores.Find(fornecedor.FornecedorId);
+                : _fornecedorRepository.Get(fornecedor.FornecedorId);
         
             if(dbFornecedor == null)
                 throw new Exception("Fornecedor não pode ser alterado, pois não existe no banco.");
@@ -46,9 +48,9 @@ namespace Application.Concrete
             dbFornecedor.TelefoneDDD = fornecedor.TelefoneDDD;
 
             if (dbFornecedor.FornecedorId == 0)
-                _dbContext.Fornecedores.Add(dbFornecedor);
-
-            _dbContext.SaveChanges();
+                _fornecedorRepository.Add(dbFornecedor);
+            
+            Commint();
         }
     }
 }

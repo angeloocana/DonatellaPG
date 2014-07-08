@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFFormaDePagamentoApp : IFormaDePagamentoApp
+    public class FormaDePagamentoApp : AppBase, IFormaDePagamentoApp
     {
-        private EFDbContext _dbContext;
-
-        public EFFormaDePagamentoApp()
+        private IRepositoryBase<FormaDePagamento> _formaDePagamentoRepository;
+        public FormaDePagamentoApp(IRepositoryBase<FormaDePagamento> formaDePagamentoRepository)
         {
-            _dbContext = new EFDbContext();
+            _formaDePagamentoRepository = formaDePagamentoRepository;
         }
-        public IQueryable<FormaDePagamento> FormaDePagamentos
+        public IEnumerable<FormaDePagamento> FormaDePagamentos
         {
-            get { return _dbContext.FormasDePagamento; }
+            get { return _formaDePagamentoRepository.Get(); }
         }
 
         public void Salvar(FormaDePagamento formaDePagamento)
         {
+            BeginTransaction();
+
             var dbFormaDePagamento = formaDePagamento.FormaDePagamentoId == 0 ? new FormaDePagamento()
-                : _dbContext.FormasDePagamento.Find(formaDePagamento.FormaDePagamentoId);
+                : _formaDePagamentoRepository.Get(formaDePagamento.FormaDePagamentoId);
 
             if (dbFormaDePagamento == null)
                 throw new Exception("Forma de pagamento não pode ser alterada, pois não existe no banco.");
@@ -33,20 +35,23 @@ namespace Application.Concrete
             dbFormaDePagamento.Descricao = formaDePagamento.Descricao;
 
             if (dbFormaDePagamento.FormaDePagamentoId == 0)
-                _dbContext.FormasDePagamento.Add(dbFormaDePagamento);
+                _formaDePagamentoRepository.Add(dbFormaDePagamento);
 
-            _dbContext.SaveChanges();
+            Commint();
         }
         public void Excluir(int formaDePagamentoId)
         {
-            var formaDePagamento = _dbContext.FormasDePagamento.Find(formaDePagamentoId);
+            BeginTransaction();
+
+            var formaDePagamento = _formaDePagamentoRepository.Get(formaDePagamentoId);
             if (formaDePagamento == null) throw new Exception("Forma de pagamento não existe!");
 
             if (formaDePagamento.Pedidos.Any())
                 throw new Exception("Forma de pagamento não pode ser excluida, pois possui pedidos vinculados!");
 
-            _dbContext.FormasDePagamento.Remove(formaDePagamento);
-            _dbContext.SaveChanges();
+            _formaDePagamentoRepository.Delete(formaDePagamento);
+
+            Commint();
         }
     }
 }

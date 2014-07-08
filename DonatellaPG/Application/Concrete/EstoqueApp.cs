@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
-
+using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Application.Concrete
 {
-    public class EFEstoqueApp : IEstoqueApp
+    public class EstoqueApp : AppBase, IEstoqueApp
     {
-        private EFDbContext _dbContext;
-
-        public EFEstoqueApp()
+        private IRepositoryBase<Estoque> _estoqueRepository;
+        public EstoqueApp(IRepositoryBase<Estoque> estoqueRepository)
         {
-            _dbContext = new EFDbContext();
+            _estoqueRepository = estoqueRepository;
         }
-        public IQueryable<Estoque> Estoques
+        public IEnumerable<Estoque> Estoques
         {
-            get { return _dbContext.Estoques; }
+            get { return _estoqueRepository.Get(); }
         }
 
         public void SalvarEstoque(Estoque estoque)
         {
+            BeginTransaction();
+
             var dbEstoque = estoque.EstoqueId == 0 ? new Estoque()
-                : _dbContext.Estoques.Find(estoque.EstoqueId);
+                : _estoqueRepository.Get(estoque.EstoqueId);
         
             if(dbEstoque == null)
                 throw new Exception("Estoque não pode ser alterado, pois não existe no banco.");
@@ -36,9 +38,9 @@ namespace Application.Concrete
             dbEstoque.Quantidade = estoque.Quantidade;
 
             if (dbEstoque.EstoqueId == 0)
-                _dbContext.Estoques.Add(dbEstoque);
+                _estoqueRepository.Add(dbEstoque);
 
-            _dbContext.SaveChanges();
+            Commint();
         }
     }
 }

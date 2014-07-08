@@ -6,19 +6,19 @@ using System.Web.Mvc;
 using System.Web.Security;
 using CaptchaMvc.Attributes;
 using DonatellaAdmin.Models;
-using DonatellaDomain.Abstract;
-using DonatellaDomain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
 using Newtonsoft.Json;
 
 namespace DonatellaAdmin.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IFuncionarioRepository _funcionarioRepository;
+        private readonly IFuncionarioApp _funcionarioApp;
 
-        public LoginController(IFuncionarioRepository funcionarioRepository)
+        public LoginController(IFuncionarioApp funcionarioApp)
         {
-            _funcionarioRepository = funcionarioRepository;
+            _funcionarioApp = funcionarioApp;
         }
 
         public ActionResult Index()
@@ -36,7 +36,7 @@ namespace DonatellaAdmin.Controllers
 
             try
             {
-                var funcionario = _funcionarioRepository.ValidarLogin(model.CPF, model.Senha);
+                var funcionario = _funcionarioApp.ValidarLogin(model.CPF, model.Senha);
                 if (funcionario == null || !funcionario.Ativo)
                     throw new Exception("Login e senha inválidos!");
 

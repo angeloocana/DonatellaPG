@@ -9,6 +9,8 @@ namespace Domain.Interfaces
         void Delete(int id);
 
         TEntity Get(int id);
+
+        TEntity First();
         IQueryable<TEntity> Get();
         void Update(TEntity obj);
     }
