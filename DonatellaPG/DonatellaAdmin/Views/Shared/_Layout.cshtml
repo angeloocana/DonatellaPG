@@ -6,8 +6,7 @@
     <title>@ViewBag.Title - Donatello</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-
+    
     @if (TempData["Alerta"] != null)
     {
         <script type="text/javascript">
@@ -27,6 +26,13 @@
                 @Html.ActionLink("Donatello Admin", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>
+                    <li>@Html.ActionLink("Categorias", "Index", "Categoria")</li>
+                    <li>@Html.ActionLink("Formas de pagamento", "Index", "FormaDePagamento")</li>
+                    <li>@Html.ActionLink("Funcionários", "Index", "Funcionario")</li>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -38,7 +44,8 @@
             <p>&copy; @DateTime.Now.Year - Donatello</p>
         </footer>
     </div>
-        
+
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/validacoes")

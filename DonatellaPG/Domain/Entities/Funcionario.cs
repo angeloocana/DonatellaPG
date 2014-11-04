@@ -76,6 +76,5 @@ namespace Domain.Entities
         public virtual Cargo Cargo { get; set; }
 
         public virtual ICollection<FuncionarioPermissao> Permissoes { get; set; }
-
     }
 }

@@ -15,6 +15,5 @@ namespace Domain.Entities
         public virtual string NomeCargo { get; set; }
 
         public virtual ICollection<Funcionario> Funcionarios { get; set; }
-
     }
 }
