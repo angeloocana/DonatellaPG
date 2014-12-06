@@ -39,5 +39,15 @@ namespace DonatellaDomain.Concrete
 
             _dbContext.SaveChanges();
         }
+
+
+        public void Excluir(int produtoId)
+        {
+            var produto = _dbContext.Produtos.Find(produtoId);
+            if (produto == null) throw new Exception("Produto não existe!");
+
+            _dbContext.Produtos.Remove(produto);
+            _dbContext.SaveChanges();
+        }
     }
 }

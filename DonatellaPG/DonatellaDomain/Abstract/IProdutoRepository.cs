@@ -7,5 +7,7 @@ namespace DonatellaDomain.Abstract
     {
         IQueryable<Produto> Produtos { get; }
         void SalvarProduto(Produto produto);
+
+        void Excluir(int produtoId);
     }
 }

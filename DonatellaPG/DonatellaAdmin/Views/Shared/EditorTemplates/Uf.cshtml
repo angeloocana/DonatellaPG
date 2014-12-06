@@ -1,0 +1,13 @@
+﻿@using Elatus.Models.Enums
+@model Uf?
+@{
+    var lista = Enum.GetValues(typeof(Uf)).Cast<Uf>().Select(s => new SelectListItem
+    {
+        Text = EnumHelper<Uf>.GetDisplayValue(s),
+        Value = s.ToString(),
+        Selected = s == Model
+    }).OrderBy(x => x.Text).ToList();
+}
+
+@Html.DropDownListFor(m => m, lista, " [Selecione] ", new { @class = "Endereco_Uf" })
+@*@Html.DropDownList("", lista, " [Selecione] ", new { Name = "Endereco.Uf", id = "Endereco_Uf", @class = "Endereco_Uf"})*@

@@ -1,0 +1,13 @@
+﻿@using Elatus.Models.Enums
+@model Sexo?
+@{
+    var sexos = Enum.GetValues(typeof (Sexo)).Cast<Sexo>().Select(s => new SelectListItem
+    {
+        Text = EnumHelper<Sexo>.GetDisplayValue(s),
+        Value = s.ToString(),
+        Selected = s == Model
+    }).ToList();
+    sexos.Add(new SelectListItem{Text = " [Selecione] ",Value = ""});
+}
+
+@Html.DropDownList("",sexos.OrderBy(s=>s.Text))

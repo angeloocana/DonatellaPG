@@ -1,0 +1,12 @@
+﻿@model OrdenarPor?
+@{
+    var ordenacoes = Enum.GetValues(typeof(OrdenarPor)).Cast<OrdenarPor>().Select(s => new SelectListItem
+    {
+        Text = s.ToString(),
+        Value = s.ToString(),
+        Selected = s == Model
+    }).ToList();
+    ordenacoes.Add(new SelectListItem { Text = " [Selecione] ", Value = "" });
+}
+
+@Html.DropDownList("", ordenacoes.OrderBy(s => s.Text), new { @class = "form-control" })

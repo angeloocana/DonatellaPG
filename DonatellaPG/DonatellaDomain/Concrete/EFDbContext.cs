@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,5 +28,10 @@ namespace DonatellaDomain.Concrete
         public DbSet<ProdutoIngrediente> ProdutosIngredientes { get; set; }
         public DbSet<StatusPedido> StatusPedidos { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        } 
     }
 }

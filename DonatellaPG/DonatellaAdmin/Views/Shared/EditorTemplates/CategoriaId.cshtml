@@ -1,0 +1,16 @@
+﻿@using DonatellaDomain.Abstract
+@model int?
+
+@{
+    var repository = (ICategoriaRepository)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(ICategoriaRepository));
+    var lista = repository.Categorias.Select(c => new SelectListItem
+    {
+        Text = c.Nome,
+        Value = c.CategoriaId.ToString(),
+        Selected = c.CategoriaId == Model
+    }).ToList();
+
+    lista.Add(new SelectListItem { Text = " [Selecione] ", Value = "" });
+}
+
+@Html.DropDownList("", lista.OrderBy(c => c.Text),new { @class = "form-control"})
