@@ -191,9 +191,7 @@
     <Compile Include="infrastructure\CustomPrincipal.cs" />
     <Compile Include="infrastructure\EnumHelper.cs" />
     <Compile Include="infrastructure\NinjectControllerFactory.cs" />
-    <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\FuncionarioViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

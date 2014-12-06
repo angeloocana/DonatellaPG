@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Donatella.Models.UsuarioViewModel>
+
+<div id="conteudo">
+        <script type="text/javascript">
+            configurarPagina('', 'interna usuários', 'Lista de usuários');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")" class="ico-voltar">Home</a></li>
+                <li>
+                    <h1>Usuários</h1>
+                </li>
+               <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+            <div class="filtros">
+                <form action="@Url.Action("CadastroUsuario")">
+                    <fieldset>
+                        <button type="submit" class="botao enviar" value="criarNovo">Criar Novo</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="scrollArea">
+                <div class="scrollArea-content" id="divGridListaAcessos">
+                    @if (TempData["Alerta"] != null)
+                    {
+                        <div class="alerta">
+                            @Html.Raw(TempData["Alerta"])
+                        </div>
+                    }
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>CPF</th>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            { 
+                                <tr>
+                                    <td>@item.Nome</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Cpf</td>
+                                    <td>
+                                        @Html.ActionLink("Editar", "CadastroUsuario", new { id = item.Id })
+                                        | @Html.ActionLink("Excluir", "Apagar", new { id = item.Id }, new { onclick = "return confirm('Deseja apagar este usuário?')" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#fecharFiltros").click();
+    });
+</script>

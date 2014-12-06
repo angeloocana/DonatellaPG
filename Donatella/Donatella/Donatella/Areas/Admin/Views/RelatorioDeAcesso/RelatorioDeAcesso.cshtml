@@ -1,0 +1,75 @@
+﻿@using System.Web.Mvc.Html
+@model  Donatella.Models.Relatorios.RelatoriosDeAcessoFormViewModel
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna participantes', 'Exemplo de cadastro');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="~/Admin" class="ico-voltar">Home</a></li>
+                <li>
+                    <h1>Relatório de Acessos</h1>
+                </li>
+                <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+            <div class="filtros">
+                @using (Html.BeginForm("BaixarExcelRelatorioDeAcesso", "RelatorioDeAcesso", FormMethod.Post,
+                    new { id = "formRelatorioDeAcesso", name = "formRelatorioDeAcesso", target = "_blank" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.CargoId)
+                            <br />
+                            @Html.EditorFor(m => m.CargoId, new { @class = "" })
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.TipoArea)
+                            <br />
+                            @Html.EditorFor(m => m.TipoArea, new { @class = "input-50" })
+
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.TipoAcesso)
+                            <br />
+                            @Html.EditorFor(m => m.TipoAcesso, new { @class = "input-50" })
+
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.DataInicio)
+                            <br />
+                            @Html.TextBoxFor(m => m.DataInicio, new { @class = "input-50" })
+
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.DataFim)
+                            <br />
+                            @Html.TextBoxFor(m => m.DataFim, new { @class = "input-50" })
+
+                        </div>
+                        <input type="button" value="Buscar" class="botao enviar" onclick="gerarRelatorioDeAcesso()" />
+                        <input type="button" class="botao enviar" value="Gerar Excel" onclick="document.formRelatorioDeAcesso.submit()" />
+                    </fieldset>
+                }
+            </div>
+            <div class="scrollArea">
+                <div class="scrollArea-content" id="divGridListaAcessos">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function gerarRelatorioDeAcesso() {
+        var data = $("#formRelatorioDeAcesso").serialize();
+        carregarPaginaPostEScriptPadroes('divGridListaAcessos', '@Url.Action("ListaRelatorioDeAcesso")', data, false);
+    }
+
+    $(document).ready(function () {
+        $("#fecharFiltros").click();
+    });
+
+</script>

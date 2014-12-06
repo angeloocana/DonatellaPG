@@ -1,0 +1,92 @@
+﻿@model Donatella.Models.UsuarioFormViewModel
+
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna usuários', 'Cadastro de Usuário');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li>@Html.ActionLink("Listar", "Index", new object { }, new { @class = "ico-voltar" })</li>
+                <li>
+                    <h1>Cadastro de Usuário</h1>
+                </li>
+            </ul>
+            <div class="scrollArea">
+                <div class="scrollArea-content">
+                    @using (Html.BeginForm("CadastroUsuario", "Usuario", FormMethod.Post, new { id = "frmUsuario", @class = "formulario-conteudo" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <fieldset>
+
+                            <label for="CadastroUsuario_Nome">Nome </label>
+                            <br />
+                            @Html.HiddenFor(m => m.Foto)
+                            @Html.TextBoxFor(m => m.Nome, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.Nome)
+                            <br />
+                            <label for="CadastroUsuario_Email">Email </label>
+                            <br />
+                            @Html.TextBoxFor(m => m.Email, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                            <br />
+                            <label for="CadastroUsuario_NovaSenha">Senha</label>
+                            <br />
+                            @Html.PasswordFor(m => m.NovaSenha, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.NovaSenha)
+                            <br />
+                            <label for="CadastroUsuario_ConfirmaSenha">Confirma Senha</label>
+                            <br />
+                            @Html.PasswordFor(m => m.ConfirmaSenha, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.ConfirmaSenha)
+                            <br />
+                            <label for="CadastroUsuario_Cpf">CPF </label>
+                            <br />
+                            @Html.TextBoxFor(m => m.Cpf, new { @class = "input-50" })
+                            @Html.ValidationMessage("Cpf")
+                            <br />
+                           @Html.MyLabelFor(m => m.CargoId)
+                            <br />
+                            @Html.EditorFor(m => m.CargoId)
+                            @Html.ValidationMessageFor(m => m.CargoId)
+                            <br />
+                            <div style="height:15px"></div>
+                            <div class="col-50">
+                                <p>Perfil Acesso</p>
+                                @foreach (var perfil in Model.PerfilAcessoLista)
+                                {
+                                    <input id="@("cbPerfil" + perfil.PerfilAcesso.Id)" type="checkbox" name="Perfis" value="@perfil.PerfilAcesso.Id" @(Model.Perfis.Contains(perfil.PerfilAcesso.Id) ? "checked=checked" : "") />
+                                    <label for="@(" cbperfil" + perfil.PerfilAcesso.Id)">@perfil.PerfilAcesso.Perfil</label>
+                                    <br />
+                                }
+                            </div>
+                            <div class="clear"></div>
+                            <input type="button" onclick="salvarUsuario()" value="Salvar" class="botao enviar" />
+                            @Html.ValidationMessage("Erro")
+
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function salvarUsuario() {
+        loader(false);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CadastroUsuario")',
+            data: $("#frmUsuario").serialize(),
+            success: function (retorno) {
+                loader(true);
+                if (retorno.toString() == "OK") {
+                    window.location = '@Url.Action("Index")';
+                } else {
+                    alert(retorno);
+                }
+            }
+        });
+    }
+</script>

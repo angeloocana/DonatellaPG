@@ -1,0 +1,38 @@
+﻿@model Donatella.Models.TrocaSenhaFormViewModel
+@{
+    ViewBag.Title = "Esqueceu a senha";
+    ViewBag.idPagina = "cadastro";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Esqueceu a senha
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+        <article class='password'>
+            <header>
+                <h1>Troca de senha</h1>
+                <p>Preencha os dados abaixo para trocar a sua senha.</p>
+            </header>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <fieldset class='changePassword'>
+                    @Html.EditorForModel()
+                    @Html.ValidationMessage("Erro")
+                </fieldset>
+                <a class='back' href='@Url.Action("Index","Login")'>Voltar</a>
+                <button class='button' type='submit'>Trocar</button>
+            }
+        </article>
+    </div>
+</section>

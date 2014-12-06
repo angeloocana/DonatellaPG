@@ -1,0 +1,13 @@
+﻿@using Donatella.Models.Enums
+@model TipoArea?
+@{
+    var tipo = Enum.GetValues(typeof (TipoArea)).Cast<TipoArea>().Select(s => new SelectListItem
+    {
+        Text = s.ToString(),
+        Value = s.ToString(),
+        Selected = s == Model
+    }).ToList();
+    tipo.Add(new SelectListItem{Text = " [Selecione] ",Value = ""});
+}
+
+@Html.DropDownList("", tipo.OrderBy(s => s.Text), new { @class = "form-control" })

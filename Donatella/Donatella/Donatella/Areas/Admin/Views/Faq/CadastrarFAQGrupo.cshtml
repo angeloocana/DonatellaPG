@@ -1,0 +1,48 @@
+﻿@model Donatella.Models.FaqGrupoFormViewModel
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna usuários', 'Cadastro de Faq Grupo');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li>@Html.ActionLink("Listar", "Index", new object { }, new { @class = "ico-voltar" })</li>
+                <li>
+                    <h1>Cadastrar Grupo(FAQ)</h1>
+                </li>
+                <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+           <div class="scrollArea">
+                <div class="scrollArea-content">
+                @using (Html.BeginForm("CadastrarFAQGrupo","Faq", FormMethod.Post, new { @class = "formulario-conteudo" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                         
+                                <label for="CadastrarFAQGrupo_Ordem">Ordem </label>
+                            <br />
+                            @Html.TextBoxFor(m => m.Ordem, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.Ordem)
+                           <br /> 
+                               
+                                 <label for="CadastrarFAQ_Grupo">Grupo</label>
+                            <br />
+                            @Html.TextBoxFor(m => m.Grupo, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.Grupo)
+                            <br />
+                           
+                            <br />
+                            <div class="clear"></div>
+                           
+                         <input type="submit" value="Salvar" class="botao enviar" />
+ @Html.ValidationMessage("Erro")
+                    </fieldset>
+                   
+                }
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+ 

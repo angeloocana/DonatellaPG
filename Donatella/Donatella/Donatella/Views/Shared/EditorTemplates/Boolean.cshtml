@@ -1,0 +1,12 @@
+﻿@model Boolean?
+
+@{
+    var opcoes = new List<SelectListItem>
+    {
+        new SelectListItem {Text = " [Selecione] ", Value = ""}, 
+        new SelectListItem {Text = "Sim", Value = "true", Selected = Model == true}, 
+        new SelectListItem {Text = "Não", Value = "false", Selected = Model == false}
+    };
+}
+
+@Html.DropDownList("", opcoes, new { @class = "form-control" })

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.alquimiacrm.com.br/CEP/Service.asmx" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.alquimiacrm.com.br/CEP/Service.asmx" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.alquimiacrm.com.br/CEP/Service.asmx">
+      <s:element name="RetornaEstados">
+        <s:complexType />
+      </s:element>
+      <s:element name="RetornaEstadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetornaEstadosResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RetornaCidades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetornaCidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetornaCidadesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetornaBairros">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cidade" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetornaBairrosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetornaBairrosResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscaCEP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cep" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscaCEPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscaCEPResult" type="tns:DadosEndereco" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DadosEndereco">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ENDERECO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BAIRRO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CIDADE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UF" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+      <s:element name="DadosEndereco" nillable="true" type="tns:DadosEndereco" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RetornaEstadosSoapIn">
+    <wsdl:part name="parameters" element="tns:RetornaEstados" />
+  </wsdl:message>
+  <wsdl:message name="RetornaEstadosSoapOut">
+    <wsdl:part name="parameters" element="tns:RetornaEstadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:RetornaCidades" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:RetornaCidadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosSoapIn">
+    <wsdl:part name="parameters" element="tns:RetornaBairros" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosSoapOut">
+    <wsdl:part name="parameters" element="tns:RetornaBairrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscaCEP" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscaCEPResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetornaEstadosHttpGetIn" />
+  <wsdl:message name="RetornaEstadosHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesHttpGetIn">
+    <wsdl:part name="estado" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosHttpGetIn">
+    <wsdl:part name="estado" type="s:string" />
+    <wsdl:part name="cidade" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPHttpGetIn">
+    <wsdl:part name="cep" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPHttpGetOut">
+    <wsdl:part name="Body" element="tns:DadosEndereco" />
+  </wsdl:message>
+  <wsdl:message name="RetornaEstadosHttpPostIn" />
+  <wsdl:message name="RetornaEstadosHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesHttpPostIn">
+    <wsdl:part name="estado" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetornaCidadesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosHttpPostIn">
+    <wsdl:part name="estado" type="s:string" />
+    <wsdl:part name="cidade" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RetornaBairrosHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPHttpPostIn">
+    <wsdl:part name="cep" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BuscaCEPHttpPostOut">
+    <wsdl:part name="Body" element="tns:DadosEndereco" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="RetornaEstados">
+      <wsdl:input message="tns:RetornaEstadosSoapIn" />
+      <wsdl:output message="tns:RetornaEstadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <wsdl:input message="tns:RetornaCidadesSoapIn" />
+      <wsdl:output message="tns:RetornaCidadesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <wsdl:input message="tns:RetornaBairrosSoapIn" />
+      <wsdl:output message="tns:RetornaBairrosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <wsdl:input message="tns:BuscaCEPSoapIn" />
+      <wsdl:output message="tns:BuscaCEPSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpGet">
+    <wsdl:operation name="RetornaEstados">
+      <wsdl:input message="tns:RetornaEstadosHttpGetIn" />
+      <wsdl:output message="tns:RetornaEstadosHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <wsdl:input message="tns:RetornaCidadesHttpGetIn" />
+      <wsdl:output message="tns:RetornaCidadesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <wsdl:input message="tns:RetornaBairrosHttpGetIn" />
+      <wsdl:output message="tns:RetornaBairrosHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <wsdl:input message="tns:BuscaCEPHttpGetIn" />
+      <wsdl:output message="tns:BuscaCEPHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpPost">
+    <wsdl:operation name="RetornaEstados">
+      <wsdl:input message="tns:RetornaEstadosHttpPostIn" />
+      <wsdl:output message="tns:RetornaEstadosHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <wsdl:input message="tns:RetornaCidadesHttpPostIn" />
+      <wsdl:output message="tns:RetornaCidadesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <wsdl:input message="tns:RetornaBairrosHttpPostIn" />
+      <wsdl:output message="tns:RetornaBairrosHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <wsdl:input message="tns:BuscaCEPHttpPostIn" />
+      <wsdl:output message="tns:BuscaCEPHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RetornaEstados">
+      <soap:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaEstados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <soap:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaCidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <soap:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaBairros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <soap:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/BuscaCEP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RetornaEstados">
+      <soap12:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaEstados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <soap12:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaCidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <soap12:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/RetornaBairros" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <soap12:operation soapAction="http://www.alquimiacrm.com.br/CEP/Service.asmx/BuscaCEP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpGet" type="tns:ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="RetornaEstados">
+      <http:operation location="/RetornaEstados" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <http:operation location="/RetornaCidades" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <http:operation location="/RetornaBairros" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <http:operation location="/BuscaCEP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpPost" type="tns:ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="RetornaEstados">
+      <http:operation location="/RetornaEstados" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaCidades">
+      <http:operation location="/RetornaCidades" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBairros">
+      <http:operation location="/RetornaBairros" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscaCEP">
+      <http:operation location="/BuscaCEP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://www.alquimiacrm.com.br/wscep/cep.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://www.alquimiacrm.com.br/wscep/cep.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
+      <http:address location="http://www.alquimiacrm.com.br/wscep/cep.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
+      <http:address location="http://www.alquimiacrm.com.br/wscep/cep.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

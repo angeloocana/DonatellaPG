@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Donatella.Models.FaqGrupoViewModel>
+
+<div id="conteudo">
+        <script type="text/javascript">
+            configurarPagina('', 'interna usuários', 'Listar FAQ Grupo');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")" class="ico-voltar">Home</a></li>
+                <li>
+                    <h1>Lista de Grupos(FAQ)</h1>
+                </li>
+               <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+            <div class="filtros">
+                <form action="@Url.Action("CadastrarFAQGrupo","Faq")">
+                    <fieldset>
+                        <button type="submit" class="botao enviar" value="criarNovo">Criar Novo</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="scrollArea">
+                <div class="scrollArea-content" id="divGridListaAcessos">
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Ordem</th>
+                                
+                                <td>Ações</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            { 
+                                <tr>
+                                    <td>@item.Grupo</td>
+                                    <td>@item.Ordem</td>
+                                    
+                                    <td> 
+                                        @Html.ActionLink("Editar", "CadastrarFAQGrupo", new { id = item.Id })
+                                         @Html.ActionLink("Excluir", "RemoverFAQGrupo",  new { id = item.Id }, new { onclick="return confirm('Deseja realmente remover o registro?')" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#fecharFiltros").click();
+    });
+</script>

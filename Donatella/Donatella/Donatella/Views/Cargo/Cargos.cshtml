@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Donatella.Data.Entities.Cargo>
+
+@{
+    ViewBag.Title = "Cargos";
+}
+
+<script type="text/javascript">
+    var a;
+    function excluirCargo(id, link) {
+        if(confirm('Deseja realmente excluir o registro?'))
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Excluir")',
+                data: {
+                    id: id , 
+                    __RequestVerificationToken : $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (retorno) {
+                    if (retorno == "OK") retorno = "Registro exluido com sucesso!";
+                    alert(retorno);
+                    link.parentNode.parentNode.parentNode.removeChild(link.parentNode.parentNode);
+                }
+            });
+    }
+</script>
+
+<div class="bs-docs-section">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="tables">Cargos</h1>
+            </div>
+
+            <div class="bs-component">
+                <button type="button" onclick="window.location = '@Url.Action("Editar")'" class="btn btn-success">Criar novo</button>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeCargo)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                                    <a href="javaScript:void(0);" onclick="excluirCargo(@item.Id, this);">Excluir</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div><!-- /example -->
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Donatella.Models.PerfilAcessoViewModel>
+
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna participantes', 'de ');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")" class="ico-voltar">Home</a></li>
+                <li>
+                    <h1>Perfis</h1>
+                </li>
+                <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+            <div class="filtros">
+                <form action="@Url.Action("PerfilAcesso")">
+                    <fieldset>
+                        <button type="submit" class="botao enviar" value="criarNovo">Criar Novo</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="scrollArea">
+                <div class="scrollArea-content" id="divGridListaAcessos">
+                    <table id="table">
+                        <thead>
+                            <tr>
+
+                                <th>Perfil</th>
+                                <th>Permissoes</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@item.Perfil</td>
+                                    <td style="max-width: 300px;">@item.Permissoes</td>
+
+                                    <td>
+                                        @Html.ActionLink("Editar", "PerfilAcesso", new { Id = item.PerfilId.Value })|
+                                    @Html.ActionLink("Excluir", "RemovePerfil", new { Id = item.PerfilId })
+
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#fecharFiltros").click();
+    });
+</script>
+
+
+
+
+

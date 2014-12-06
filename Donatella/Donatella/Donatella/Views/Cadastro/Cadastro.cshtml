@@ -1,0 +1,23 @@
+﻿@model Donatella.Models.CadastroViewModel
+@{
+    ViewBag.Title = "Cadastro";
+    ViewBag.idPagina = "cadastro";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Cadastro
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+
+        @{Html.RenderPartial("_Cadastro", Model);}
+    </div>
+</section>

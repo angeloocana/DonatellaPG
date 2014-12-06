@@ -1,0 +1,21 @@
+﻿<div id="topo">
+     <header>
+         <h1>POL</h1>
+         <h2>Sistema Administrativo</h2>
+         <ul class="header-menu">
+             <li class="usuario">
+                 <img src="~/style/Donatella/Images/foto-usuario.jpg">
+               @*  <strong>@Model.Nome</strong><br>*@
+                 @UsuarioLogado.CurrentUser.FirstName
+             </li>
+@*             <li class="busca">
+                 <a href="#" class="ico-busca">Busca</a>
+                <form class="pesquisa">
+                    <input type="text" placeholder="O que você deseja buscar?" />
+                    <button type="submit">Buscar</button>
+                </form>
+             </li>*@
+             <li class="logout"><a href="@Url.Action("Logout","Login")" class="ico-sair">Sair</a></li>
+         </ul>
+     </header>
+</div>

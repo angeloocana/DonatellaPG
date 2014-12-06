@@ -1,0 +1,24 @@
+﻿@model string
+
+@{
+    var assuntos = new List<string>
+    {
+       
+        "Acesso ao site",
+        "Cadastro",
+        "Dúvidas",
+        "Esqueceu a senha",
+        "Prazo de entrega",
+        "Outros"
+    }.Select(c => new SelectListItem
+    {
+        Text = c,
+        Value = c,
+        Selected = c == Model
+        
+    }).ToList();
+    assuntos.Add(new SelectListItem { Text = " [Selecione] ", Value = "" });
+    
+}
+
+@Html.DropDownList("", assuntos.OrderBy(x => x.Text), new { @class = "form-control" })

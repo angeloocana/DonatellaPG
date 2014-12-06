@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+@{ Html.RenderPartial("_Head"); }
+
+<body id="login">
+    <div id="content">
+        @{ Html.RenderPartial("_Header"); }
+
+        <section id="login">
+            <div class="container">
+                <div class="col-wrap">
+                    <div class="col"></div>
+                </div>
+                <article class="logoCampaign">
+                    <header>
+                        <h1><img src="~/style/Donatella/img/logo-grandeSafraGrandeCifra.png" height="166" width="194" title="Programa Fungicida Grande Safra Grande Cifra"></h1>
+                    </header>
+                </article>
+                <article class="notFound">
+                    <header>
+                        <h1>Erro ou Página não encontrada</h1>
+                    </header>
+                    <p>Você tentou acessar uma página que não existe ou deu erro.</p>
+                    <a href="@Url.Action("Index","Home")"><i class="fa fa-home fa-2x"></i> Clique aqui para ir para a Home do site</a>
+                </article>
+
+            </div>
+        </section>
+
+        <div class="footer-fix"></div>
+    </div>
+
+    @{Html.RenderPartial("_Rodape");}

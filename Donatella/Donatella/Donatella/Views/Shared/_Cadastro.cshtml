@@ -1,0 +1,233 @@
+﻿@using Donatella.Data.Entities
+@using Donatella.Models.Enums
+@model Donatella.Models.CadastroViewModel
+
+<article class='registerForm'>
+    @using (Html.BeginForm("SalvarCadastro", "Cadastro", FormMethod.Post, new { id = "frmCadastro" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset class="profilePhoto">
+            <h2>Sua foto</h2>
+            <div class="profile">
+                @Html.HiddenFor(x => x.Foto)
+                <div class="photo">
+                    <img id="fotoParticipante" src="~/@ParticipanteHelpers.Foto(Model.Foto)">
+                </div>
+            </div>
+            <p>Você pode enviar arquivos JPG, GIF, BMP ou PNG (tamanho máximo de 1 MB). Não envie fotos que contenham imagens de personagens de desenho animado, pessoas famosas, nudez, trabalho artístico ou material protegido por direitos autorais. O tamanho mínimo de imagem é de 75x75 pixels.</p>
+            <div id="divInputUpload" class='col'>
+                <input id="profilePhoto" name="arquivo" type="file">
+            </div>
+            <div class='col'>
+                <button class='button' type='button' onclick="uploadFoto();">Enviar foto</button>
+            </div>
+        </fieldset>
+        <fieldset class="personalData">
+            <h2>Dados Pessoais</h2>
+            <div class="col">
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.TipoTelaDeCadastro)
+                @Html.MyLabelFor(m => m.Nome)
+                @Html.EditorFor(m => m.Nome)
+                @Html.ValidationMessageFor(m => m.Nome)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.NomePai)
+                @Html.EditorFor(m => m.NomePai)
+                @Html.ValidationMessageFor(m => m.NomePai)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.NomeMae)
+                @Html.EditorFor(m => m.NomeMae)
+                @Html.ValidationMessageFor(m => m.NomeMae)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.CargoId)
+                @Html.EditorFor(m => m.CargoId)
+                @Html.ValidationMessageFor(m => m.CargoId)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.DtNascimento)
+                @Html.EditorFor(m => m.DtNascimento)
+                @Html.ValidationMessageFor(m => m.DtNascimento)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.EstadoCivilId)
+                @Html.EditorFor(m => m.EstadoCivilId)
+                @Html.ValidationMessageFor(m => m.EstadoCivilId)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.Email)
+                @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.Cpf)
+                @Html.TextBoxFor(m => m.Cpf, new { @readonly = "readonly" })
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.Rg)
+                @Html.EditorFor(m => m.Rg)
+                @Html.ValidationMessageFor(m => m.Rg)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.Sexo)
+                @Html.EditorFor(m => m.Sexo)
+                @Html.ValidationMessageFor(m => m.Sexo)
+            </div>
+        </fieldset>
+        <fieldset class="phones">
+            <h2>Telefones</h2>
+            <div class="col">
+                @Html.MyLabelFor(m => m.TelResidencial)
+                @Html.TextBoxFor(m => m.TelResidencial, new { @class = "telefone" })
+                @Html.ValidationMessageFor(m => m.TelResidencial)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.TelComercial)
+                @Html.TextBoxFor(m => m.TelComercial, new { @class = "telefone" })
+                @Html.ValidationMessageFor(m => m.TelComercial)
+            </div>
+            <div class="col">
+                @Html.MyLabelFor(m => m.TelCelular)
+                @Html.TextBoxFor(m => m.TelCelular, new { @class = "celular" })
+                @Html.ValidationMessageFor(m => m.TelCelular)
+            </div>
+        </fieldset>
+        <fieldset class="address">
+            <h2>Endereço</h2>
+            <div class="alert">
+                <p>
+                    <strong>Confira atentamente o seu endereço.</strong><br>
+                    Cuidado ao preencher, pois o seu cartão será encaminhado diretamente para esse logradouro.
+                </p>
+            </div>
+            @{Html.RenderPartial("_Endereco", Model.Endereco ?? new Endereco(), new ViewDataDictionary
+              {
+                  TemplateInfo = new System.Web.Mvc.TemplateInfo { HtmlFieldPrefix = "Endereco" }
+              });}
+        </fieldset>
+        <fieldset class="password">
+            <h2>Sua senha</h2>
+            <div class="alert">
+                <p>
+                    <strong>É necessário o recadastro de sua senha.</strong><br>
+                    Você pode manter a sua senha atual ou criar uma nova. Após esta etapa clique no botão "enviar".
+                </p>
+            </div>
+            <div class="col" id="divSenhaAtual">
+                @Html.MyLabelFor(m => m.SenhaAtual)
+                @Html.EditorFor(m => m.SenhaAtual)
+                @Html.ValidationMessageFor(m => m.SenhaAtual)
+                <label class="inline" for="cbAlterarSenha">
+                    <input type="checkbox" id="cbAlterarSenha" />
+                    Alterar Senha?
+                </label>
+            </div>
+            <div class="col" id="divNovaSenha">
+                @Html.MyLabelFor(m => m.NovaSenha)
+                @Html.EditorFor(m => m.NovaSenha)
+                @Html.ValidationMessageFor(m => m.NovaSenha)
+                <p class='note'>A senha deve conter no mínino 6 dígitos.</p>
+            </div>
+            <div class="col" id="divConfirmarSenha">
+                @Html.MyLabelFor(m => m.ConfirmaSenha)
+                @Html.EditorFor(m => m.ConfirmaSenha)
+                @Html.ValidationMessageFor(m => m.ConfirmaSenha)
+            </div>
+        </fieldset>
+
+        <a href="javaScript:void(0);" class='back' onclick="window.history.back()">Voltar</a>
+        <button type="button" class='button' onclick="salvarCadastroParticipante();">Enviar</button>
+    }
+</article>
+
+<div id="subir-foto" style="display: none;">
+    <form target="upload_target" enctype="multipart/form-data" method="post" action="@Url.Action("SalvarFoto","Cadastro")"
+          id="frmFoto">
+        <fieldset>
+            @Html.AntiForgeryToken()
+            <div id="divInputUploadIFrame"></div>
+            <a onclick="uploadFoto();" class="botao">upload</a>
+        </fieldset>
+    </form>
+    <iframe name="upload_target" style="border: 0px; width: 0px; height: 0px; display: none;"
+            id="upload_target"></iframe>
+</div>
+
+@if (Model.TipoTelaDeCadastro == TipoTelaDeCadastro.MeusDados)
+{
+    <script type="text/javascript">
+        $("#Nome").attr("readonly", "readonly");
+        $("#CargoId").attr("disabled", "disabled");
+        $("#DtNascimento").attr("readonly", "readonly");
+        $("#Rg").attr("readonly", "readonly");
+
+        //document.getElementById("divNovaSenha").style.display = "none";
+    </script>
+}
+else if (Model.TipoTelaDeCadastro == TipoTelaDeCadastro.PrimeiroAcesso)
+{
+    <script type="text/javascript">
+        $("#cbAlterarSenha").attr("checked", "checked");
+        $("#divSenhaAtual").hide();
+    </script>
+}
+else if (Model.TipoTelaDeCadastro == TipoTelaDeCadastro.Admin)
+{
+    <script type="text/javascript"></script>
+}
+
+
+<script type="text/javascript">
+    function salvarCadastroParticipante() {
+        @if (Model.TipoTelaDeCadastro == TipoTelaDeCadastro.PrimeiroAcesso)
+        {
+            <text>
+                $("#SenhaAtual").val($("#NovaSenha").val());
+            </text>
+        }
+
+        if (!$('#frmCadastro').valid())
+            return;
+
+        loader(false);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SalvarCadastro","Cadastro")',
+            data: $('#frmCadastro').serialize(),
+            success: function (retorno) {
+                loader(true);
+                retorno = retorno.toString();
+                if (retorno != "OK")
+                    alert(retorno);
+                else
+                    document.location = '@Url.Action("Index","Portal")';
+            }
+        });
+    }
+
+    function uploadFoto() {
+        loader(false);
+        var foto = document.getElementById("profilePhoto");
+        var div = document.getElementById("divInputUploadIFrame");
+        div.appendChild(foto);
+        $("#frmFoto").submit();
+    }
+
+    function fotoUploaded(retorno) {
+        loader(true);
+
+        var foto = document.getElementById("profilePhoto");
+        var div = document.getElementById("divInputUpload");
+        div.appendChild(foto);
+
+        if (retorno.Erro != undefined && retorno.Erro != '')
+            alert(retorno.Erro);
+        else if (retorno.url.length > 0) {
+            $("#Foto").val(retorno.url);
+            $("#fotoParticipante").attr('src', '@Url.Content("~/Arquivos/FotoParticipantes/")' + retorno.url);
+        }
+    }
+</script>

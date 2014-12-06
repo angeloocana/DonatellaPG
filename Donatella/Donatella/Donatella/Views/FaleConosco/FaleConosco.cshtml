@@ -1,0 +1,37 @@
+﻿@model Donatella.Models.FaleConoscoFormViewModel
+
+@{
+    ViewBag.Title = "Fale Conosco";
+    ViewBag.idPagina = "faleConosco";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Fale conosco
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+        <article class='instructions'>
+            <p>O Fale Conosco é o canal direto entre você e a Donatella. Caso tenha dúvidas que não foram solucionadas, envie um e-mail para nós através do formulário abaixo.</p>
+        </article>
+        <article class='contact'>
+            @using (Html.BeginForm("FaleConosco", "FaleConosco"))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    @Html.EditorForModel()
+                </fieldset>
+                <a class='back' onclick='window.history.back();' href="javaScript:void(0);">Voltar</a>
+                <button class='button' type='submit'>Enviar</button>
+                @Html.ValidationMessage("Erro")
+            }
+        </article>
+    </div>
+</section>

@@ -1,0 +1,68 @@
+﻿@using Donatella.Models.Enums
+<div id="menu">
+    <ul>
+        <li class="parceiros">
+            <a href="~/Admin">Home</a>
+        </li>
+        <li class="usuarios">
+            <a href="#">Cadastros</a>
+            <div class="subnivel-1">
+                <ul>
+
+                    @if (UsuarioLogado.TemPermissao(Permissoes.CadastroGrupoFaq))
+                    {
+                        <li><a href="@Url.Action("ListarFAQGrupo", "Faq")">Faq Grupo</a></li>
+                    }
+
+                    @if (UsuarioLogado.TemPermissao(Permissoes.CadastroFaq))
+                    {
+                        <li><a href="@Url.Action("ListarFAQ", "Faq")">Faq</a></li>
+                    }
+                </ul>
+            </div>
+        </li>
+   <li class="participantes">
+            <a href="#">Usuários</a>
+            <div class="subnivel-1">
+                <ul>
+                    @if (UsuarioLogado.TemPermissao(Permissoes.CadastroPerfilPermissoes))
+                    {
+                        <li><a href="@Url.Action("Index", "Perfil")">Perfis de Acesso</a></li>
+                    }
+
+                    @if (UsuarioLogado.TemPermissao(Permissoes.CadastroUsuario))
+                    {
+                        <li><a href="@Url.Action("Index", "Usuario")">Usuários</a></li>
+                    }
+                </ul>
+            </div>
+        </li>
+        <li class="relatorios">
+            <a href="#">Relatórios</a>
+            <div class="subnivel-1">
+                <ul>
+                  
+                    @if (UsuarioLogado.TemPermissao(Permissoes.RelatorioAcesso))
+                    {
+                        <li><a href="@Url.Action("Index", "RelatorioDeAcesso")">Relatório de Acessos</a></li>
+                    }
+
+                    @if (UsuarioLogado.TemPermissao(Permissoes.RelatorioUsuarios))
+                    {
+                        <li><a href="@Url.Action("Index", "RelatorioDeParticipante")">Relatório de Participantes</a></li>
+                    }
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var divsSubNivel = document.getElementsByClassName('subnivel-1');
+    for (var i = 0; i < divsSubNivel.length; i++) {
+        var ul = divsSubNivel[i].children[0];
+        
+        if (ul.childElementCount == 0)
+            ul.parentNode.parentNode.parentNode.removeChild(ul.parentNode.parentNode);
+    }
+</script>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Esqueceu a senha";
+    ViewBag.idPagina = "cadastro";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Esqueceu a senha
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+        <article class='instructions'>
+            <p>Uma mensagem com as instruções para trocar a sua senha foi enviada para o seu e-mail.</p>
+            <p>Caso você não encontre a mensagem em sua Caixa de Entrada, verifique se não está na pasta de Spams.</p>
+            <a class='back' href='@Url.Action("Index","Login")'>Voltar</a>
+        </article>
+    </div>
+</section>

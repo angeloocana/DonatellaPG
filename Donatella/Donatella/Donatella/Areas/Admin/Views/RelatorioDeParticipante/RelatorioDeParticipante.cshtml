@@ -1,0 +1,82 @@
+﻿@using System.Web.Mvc.Html
+@model Donatella.Models.Relatorios.RelatorioDeParticipanteFormViewModel
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna participantes', 'Relatório de Participantes');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="~/Admin" class="ico-voltar">Home</a></li>
+                <li>
+                    <h1>Relatório de Participantes</h1>
+                </li>
+                <li class="bt-filtros"><a href="#" class="ico-filtros" id="fecharFiltros">Filtros</a></li>
+            </ul>
+            <div class="filtros">
+                @using (Html.BeginForm("BaixarExcelRelatorioDeParticipante", "RelatorioDeParticipante", FormMethod.Post,
+                    new { id = "formRelatorioDeParticipante", name = "formRelatorioDeParticipante", target = "_blank" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.CargoId)
+                            <br />
+                            @Html.EditorFor(m => m.CargoId)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.Nome)
+                            <br />
+                            @Html.EditorFor(m => m.Nome)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.DtNascimento)
+                            <br />
+                            @Html.EditorFor(m => m.DtNascimento)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.Uf)
+                            <br />
+                            @Html.EditorFor(m => m.Uf)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.Email)
+                            <br />
+                            @Html.TextBoxFor(m => m.Email)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.Cpf)
+                            <br />
+                            @Html.TextBoxFor(m => m.Cpf)
+                        </div>
+                        <div class="coluna-30">
+                            @Html.MyLabelFor(m => m.Sexo)
+                            <br />
+                            @Html.EditorFor(m => m.Sexo)
+                        </div>
+
+                        <input type="button" value="Buscar" class="botao enviar" onclick="gerarRelatorioDeParticipante()" />
+                        <input type="button" class="botao enviar" value="Gerar Excel" onclick="document.formRelatorioDeParticipante.submit()" />
+                    </fieldset>
+                }
+            </div>
+            <div class="scrollArea">
+                <div class="scrollArea-content" id="divGridListaParticipantes">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function gerarRelatorioDeParticipante() {
+        var data = $("#formRelatorioDeParticipante").serialize();
+        carregarPaginaPostEScriptPadroes('divGridListaParticipantes', '@Url.Action("ListaRelatorioDeParticipante")', data, false);
+    }
+
+    $(document).ready(function () {
+        $("#fecharFiltros").click();
+    });
+
+</script>

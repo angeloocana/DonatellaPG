@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Dúvidas";
+    ViewBag.idPagina = "duvidas";
+}
+@model  IEnumerable<Donatella.Models.FaqGrupoViewModel>
+
+<article class="faq">
+    <header>
+        <h1>Veja se a resposta que procura está aqui</h1>
+    </header>
+    <p>Depois de ver as respostas abaixo, caso a sua dúvida não seja esclarecida, entre em contato com a Central de Atendimento pelo telefone 11 3508-4615, de 2ª. a 6ª.feira, das 9 às 17h.</p>
+    @foreach (var item in Model)
+    {
+        <h2>@item.Grupo</h2>
+        <ol>
+            @if (item.Faqs != null)
+            {
+                foreach (var faq in item.Faqs)
+                {
+                    <li class="">
+                        <p class="question">@Html.Raw(faq.Pergunta)</p>
+                        <p class="answer">@Html.Raw(faq.Resposta)</p>
+                    </li>
+                }
+            }
+        </ol>
+    }
+    
+    <h2>Fale Conosco</h2>
+    <p>Este é o canal direto entre você e a Donatella. Caso tenha dúvidas que não foram solucionadas neste canal, envie um e-mail clicando na aba “Fale Conosco”.</p>
+    <h2>Prazos de Resposta</h2>
+    <p>O prazo para resposta por e-mail às dúvidas do premiado é de 72 horas (3 dias úteis). O prazo para ocorrências abertas pela Central de Atendimento é de até 5 dias úteis para que os participantes tenham um primeiro retorno e uma posição sobre o status da ocorrência.</p>
+</article>

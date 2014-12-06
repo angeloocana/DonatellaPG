@@ -1,0 +1,40 @@
+﻿@model Donatella.Models.EsqueceuSenhaFormViewModel
+@{
+    ViewBag.Title = "Esqueceu a senha";
+    ViewBag.idPagina = "cadastro";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Esqueceu a senha
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+        <article class='instructions'>
+            <p>A solicitação de nova senha é feita através do seu CPF e as instruções são enviadas para o e-mail cadastrado no site.</p>
+        </article>
+        <article class='registerCPF'>
+            <header>
+                <h1>Seu CPF</h1>
+            </header>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <fieldset>
+                    @Html.EditorForModel()
+                    @Html.ValidationMessage("Erro")
+                </fieldset>
+                <a class='back' href='@Url.Action("Index","Login")'>Voltar</a>
+                <button class='button' type='submit'>Enviar</button>
+            }
+        </article>
+    </div>
+</section>

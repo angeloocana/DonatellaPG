@@ -1,0 +1,15 @@
+﻿@using Donatella.App.Interface
+@using StructureMap
+@model int?
+
+@{
+    var app = ObjectFactory.GetInstance<IFaqApp>();
+    var lista = app.GruposCombo().Select(c => new SelectListItem
+    {
+        Text = c.Value,
+        Value = c.Key.ToString(),
+        Selected = c.Key == Model
+    }).OrderBy(x => x.Text).ToList();
+}
+
+@Html.DropDownList("", lista, " [Selecione] ")

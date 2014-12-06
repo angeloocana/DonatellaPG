@@ -1,0 +1,26 @@
+﻿@model Donatella.Models.CadastroViewModel
+@{
+    ViewBag.Title = "Cadastro";
+    ViewBag.idPagina = "cadastro";
+}
+
+<section id='mediabox'>
+    <div class='container'>
+        <article class='preContent'>
+            <header>
+                <h1>
+                    Meu cadastro
+                </h1>
+            </header>
+        </article>
+    </div>
+</section>
+<section id='content'>
+    <div class='container'>
+        <article class='instructions'>
+            <p>Preencha ou atualize todos os dados, pois quando você for premiado, a premiação será enviada para o endereço informado aqui.</p>
+        </article>
+
+        @{Html.RenderPartial("_Cadastro", Model);}
+    </div>
+</section>

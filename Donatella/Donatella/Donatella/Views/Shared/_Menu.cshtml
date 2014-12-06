@@ -1,0 +1,12 @@
+﻿@if (UsuarioLogado.Logado)
+{
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>
+            <li>@Html.ActionLink("Categorias", "Index", "Categoria")</li>
+            <li>@Html.ActionLink("Formas de pagamento", "Index", "FormaDePagamento")</li>
+            <li>@Html.ActionLink("Funcionários", "Index", "Funcionario")</li>
+        </ul>
+    </div>
+}

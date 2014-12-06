@@ -1,0 +1,60 @@
+﻿@model DonatellaDomain.Entities.FormaDePagamento
+
+@{
+    ViewBag.Title = "FormaDePagamento";
+}
+
+<div class="bs-docs-section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="forms">Formas de pagamento</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well bs-component">
+                @using (Html.BeginForm("Editar", "FormaDePagamento", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <legend>Forma de pagamento</legend>
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(m => m.FormaDePagamentoId)
+                        <div class="form-group">
+                            @Html.BootStrapLabelFor(m => m.Descricao)
+                            <div class="col-lg-10">
+                                @Html.EditorFor(m => m.Descricao)
+                                @Html.ValidationMessageFor(m => m.Descricao)
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.Ativo)
+                                        Ativo
+                                        @Html.ValidationMessageFor(m => m.Ativo)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit" class="btn btn-default">Salvar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-component">
+    <ul class="pager">
+        <li class="previous"><a href="@Url.Action("Index")">&larr; Voltar a lista</a></li>
+    </ul>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

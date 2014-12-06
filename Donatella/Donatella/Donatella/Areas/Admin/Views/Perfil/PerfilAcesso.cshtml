@@ -1,0 +1,48 @@
+﻿@model Donatella.Models.PerfilAcessoFormViewModel
+
+<div id="conteudo">
+    <script type="text/javascript">
+        configurarPagina('', 'interna participantes', 'de ');
+    </script>
+    <div class="principal centraliza">
+        <div class="coluna-100">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Perfil")" class="ico-voltar">Perfis</a></li>
+                <li>
+                    <h1>Cadastro de Perfil</h1>
+                </li>
+            </ul>
+            <div class="scrollArea">
+                <div class="scrollArea-content">
+                    @using (Html.BeginForm("PerfilAcesso", "Perfil", FormMethod.Post, new { @class = "formulario-conteudo" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <fieldset>
+                            @Html.HiddenFor(m => m.Id)
+
+                           @Html.MyLabelFor(m => m.Perfil)
+                            <br />
+
+                            @Html.TextBoxFor(m => m.Perfil, new { @class = "input-50" })
+                            @Html.ValidationMessageFor(m => m.Perfil)
+
+                            <div class="col-50">
+                                <p>Permissões</p>
+
+                                @foreach (var permissao in Model.PermissoesLista)
+                                {
+                                    <input id="@("permissao" + permissao.Permissao)" type="checkbox" name="Permissoes" value="@permissao.Permissao" @(permissao.Possui ? "checked=checked" : "") />
+                                    <label for="@("permissao" + permissao.Permissao)">@permissao.Permissao</label>
+                                    <br />
+                                }
+                                <input type="submit" value="Salvar" class="botao enviar" />
+                            </div>
+
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

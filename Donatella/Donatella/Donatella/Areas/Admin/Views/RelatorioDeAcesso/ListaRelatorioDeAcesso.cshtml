@@ -1,0 +1,33 @@
+﻿@using Donatella.Models.Enums
+@model Donatella.Models.Relatorios.GridRelatorioDeAcessosViewModel
+
+
+<table id="table">
+    <thead>
+        <tr>
+            <th>Quantidade</th>
+            <th>Pagina</th>
+            @if (Model.TipoAcesso == TipoAcesso.PorPagina)
+            {
+                <th>DtAcesso</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Relatorio)
+        {
+            <tr>
+                <td>@item.Quantidade</td>
+                <td>@item.Pagina</td>
+
+                @if (Model.TipoAcesso == TipoAcesso.PorPagina)
+                {
+                    <td>@item.DtAcesso</td>
+                }
+
+            </tr>
+        }
+    </tbody>
+
+</table>
