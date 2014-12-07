@@ -13,11 +13,9 @@ namespace Donatella.Data
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<FaleConosco> FaleConoscos { get; set; }
-        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Faq> Faqs { get; set; }
         public DbSet<FaqGrupo> FaqGrupos { get; set; }
         public DbSet<PerfilAcesso> PerfilAcessos { get; set; }
-        public DbSet<UsuarioPerfilAcesso> UsuarioPerfilsPermissao { get; set; }
         public DbSet<PerfilAcessoPermissao> PerfilAcessoPermissao { get; set; }
         public DbSet<Log> Log { get; set; }
         public DbSet<Mensagem> Mensagens { get; set; }

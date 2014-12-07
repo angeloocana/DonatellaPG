@@ -82,20 +82,10 @@ namespace Donatella.Migrations
                     Nome = nome,
                     Email = email,
                     Senha = CriptografiaHelpers.Criptografar(senha, cpf.ToString()),
-                    DtInclusao = DateTime.Now
+                    DtInclusao = DateTime.Now,
+                    PerfilAcessoId = perfilId
                 };
                 context.Usuarios.Add(usuario);
-                context.SaveChanges();
-
-                var usuarioPerfil = new UsuarioPerfilAcesso
-                {
-                    DtInclusao = DateTime.Now,
-                    DtAlteracao = DateTime.Now,
-                    PerfilAcessoId = perfilId,
-                    UsuarioId = usuario.Id
-                };
-
-                context.UsuarioPerfilsPermissao.AddOrUpdate(usuarioPerfil);
                 context.SaveChanges();
             }
         }

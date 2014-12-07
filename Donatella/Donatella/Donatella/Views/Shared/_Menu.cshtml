@@ -3,10 +3,16 @@
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Meus Dados", "MeusDados", "Usuario")</li>
             <li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>
             <li>@Html.ActionLink("Categorias", "Index", "Categoria")</li>
             <li>@Html.ActionLink("Formas de pagamento", "Index", "FormaDePagamento")</li>
-            <li>@Html.ActionLink("Funcionários", "Index", "Funcionario")</li>
+            <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+            <li>@Html.ActionLink("Produtos", "Index", "Produto")</li>
+            <li>@Html.ActionLink("Pedido", "Index", "Pedido")</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Sair", "Logout", "Login")</li>
         </ul>
     </div>
 }

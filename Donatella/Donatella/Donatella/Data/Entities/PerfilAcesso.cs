@@ -9,6 +9,6 @@ namespace Donatella.Data.Entities
         public string Perfil { get; set; }
         public virtual ICollection<PerfilAcessoPermissao> Permissoes { get; set; }
 
-        public virtual ICollection<UsuarioPerfilAcesso> Usuarios { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

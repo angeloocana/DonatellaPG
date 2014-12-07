@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Donatella.Models.Enums
 {
-    public enum TipoTelaDeCadastro
+    public enum TipoTelaDeUsuario
     {
         PrimeiroAcesso,
         MeusDados,

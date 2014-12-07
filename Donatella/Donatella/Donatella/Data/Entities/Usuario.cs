@@ -8,8 +8,6 @@ namespace Donatella.Data.Entities
 {
     public class Usuario : EntityBase
     {
-        public bool IsAdmin { get; set; }
-
         [ForeignKey("Cargo")]
         public virtual int? CargoId { get; set; }
         public virtual Cargo Cargo { get; set; }
@@ -24,38 +22,46 @@ namespace Donatella.Data.Entities
 
         [Index(IsUnique = true)]
         public virtual Int64 Cpf { get; set; }
-
-        [MaxLength(300)]
-        public virtual string Foto { get; set; }
-
+        
         [MaxLength]
         public virtual byte[] Senha { get; set; }
         
-        public virtual bool SenhaBloqueada { get; set; }
-
-        public virtual int ErrosDeSenha { get; set; }
-
         [MaxLength(50)]
         public virtual string TokenSenha { get; set; }
 
         public virtual Sexo? Sexo { get; set; }
         
         public virtual DateTime? DtNascimento { get; set; }
-
-        [ForeignKey("Endereco")]
-        public virtual int? EnderecoId { get; set; }
-        public virtual Endereco Endereco { get; set; }
-
-        [MaxLength(10)]
-        public virtual string TelResidencial { get; set; }
-        [MaxLength(2)]
-        public virtual string TelResidencialDdd { get; set; }
-
-        [MaxLength(10)]
-        public virtual string TelCelular { get; set; }
-        [MaxLength(2)]
-        public virtual string TelCelularDdd { get; set; }
         
-        public virtual ICollection<UsuarioPerfilAcesso> PerfilsPermissoes { get; set; }
+        [MaxLength(15)]
+        public virtual string Telefone { get; set; }
+
+        [MaxLength(15)]
+        public virtual string Celular { get; set; }
+
+        [ForeignKey("PerfilAcesso")]
+        public int? PerfilAcessoId { get; set; }
+        public virtual PerfilAcesso PerfilAcesso { get; set; }
+
+        [MaxLength(150), Display(Name = "Endereço"), Required]
+        public virtual string Logradouro { get; set; }
+
+        [MaxLength(150)]
+        public virtual string Complemento { get; set; }
+
+        [MaxLength(50), Display(Name = "Número"), Required]
+        public virtual string Numero { get; set; }
+
+        [MaxLength(150), Required]
+        public virtual string Bairro { get; set; }
+
+        [MaxLength(150), Required]
+        public virtual string Cidade { get; set; }
+
+        [DataType("Uf"), Display(Name = "Estado"), Required]
+        public virtual Uf? Uf { get; set; }
+
+        [MaxLength(12), Display(Name = "CEP"), Required]
+        public virtual string Cep { get; set; }
     }
 }

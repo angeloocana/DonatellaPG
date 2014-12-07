@@ -1,53 +1,52 @@
 ﻿using System;
 using System.Web.Mvc;
 using Donatella.App.Interface;
-using Donatella.Data.Entities;
 using Donatella.Filters;
-using Donatella.Models.Cargos;
+using Donatella.Models.Produtos;
 
 namespace Donatella.Controllers
 {
     [CustomAuthorize]
-    public class CargoController : BaseController
+    public class ProdutoController : BaseController
     {
-        private readonly ICargoApp _cargoApp;
+        private readonly IProdutoApp _produtoApp;
 
-        public CargoController(ICargoApp cargoApp)
+        public ProdutoController(IProdutoApp produtoApp)
         {
-            _cargoApp = cargoApp;
+            _produtoApp = produtoApp;
         }
         
         public ActionResult Index()
         {
-            return View("Cargos", _cargoApp.Cargos());
+            return View("Produtos", _produtoApp.Produtos());
         }
         [HttpGet]
         public ActionResult Editar(int? id)
         {
-            var cargo = id > 0 ? _cargoApp.Cargo(id.Value)
-                : new CargoViewModel();
+            var produto = id > 0 ? _produtoApp.Produto(id.Value)
+                : new ProdutoFormViewModel();
 
-            if (cargo != null) return View("Cargo", cargo);
+            if (produto != null) return View("Produto", produto);
 
-            TempData["Alerta"] = "Cargo não encontrado!";
+            TempData["Alerta"] = "Produto não encontrado!";
             return RedirectToAction("Index");
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Editar(CargoViewModel cargo)
+        public ActionResult Editar(ProdutoFormViewModel produto)
         {
             if (!ModelState.IsValid)
-                return View("Cargo", cargo);
+                return View("Produto", produto);
 
             try
             {
-                _cargoApp.Salvar(cargo);
+                _produtoApp.Salvar(produto);
             }
             catch (Exception ex)
             {
                 TempData["Alerta"] = ex.Message;
-                return View("Cargo", cargo);
+                return View("Produto", produto);
             }
 
             return RedirectToAction("Index");
@@ -59,7 +58,7 @@ namespace Donatella.Controllers
         {
             try
             {
-                _cargoApp.Excluir(id);
+                _produtoApp.Excluir(id);
                 return "OK";
             }
             catch (Exception ex)

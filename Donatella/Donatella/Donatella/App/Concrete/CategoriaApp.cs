@@ -5,6 +5,7 @@ using AutoMapper;
 using Donatella.App.Interface;
 using Donatella.Data.Entities;
 using Donatella.Models.Categorias;
+using Donatella.Models.Produtos;
 
 namespace Donatella.App.Concrete
 {
@@ -15,6 +16,30 @@ namespace Donatella.App.Concrete
         public CategoriaApp(IRepository<Categoria> categoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
+        }
+
+        public IEnumerable<CategoriaProdutosViewModel> Produtos()
+        {
+            return (from x in _categoriaRepository.Get()
+                where x.DtInativacao == null
+                select new CategoriaProdutosViewModel
+                {
+                    Categoria = x.NomeCategoria,
+                    Id = x.Id,
+                    Produtos = (from p in x.Produtos
+                        where p.DtInativacao == null
+                              select new ProdutoViewModel
+                              {
+                                  Ativo = true,
+                                  Categoria = x.NomeCategoria,
+                                  Id = p.Id,
+                                  Descricao = p.Descricao,
+                                  NomeProduto = p.NomeProduto,
+                                  Preco = p.Preco,
+                                  PrecoDe = p.PrecoDe 
+                              })
+                    
+                });
         }
 
         public Dictionary<int, string> Combo()

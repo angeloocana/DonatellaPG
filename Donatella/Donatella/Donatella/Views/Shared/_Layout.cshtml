@@ -6,7 +6,22 @@
     <title>@ViewBag.Title - Donatello</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/globalize/globalize.js"></script>
+    <script src="~/Scripts/globalize/cultures/globalize.culture.pt-BR.js"></script>
+    @Scripts.Render("~/bundles/validacoes")
 
+    <script>
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) ||
+                !isNaN(Globalize.parseFloat(value));
+        }
+        $(document).ready(function () {
+            Globalize.culture('pt-BR');
+        });
+    </script>
     @if (TempData["Alerta"] != null)
     {
         <script type="text/javascript">
@@ -36,9 +51,62 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+    
     @RenderSection("scripts", required: false)
-    @Scripts.Render("~/bundles/validacoes")
+    <script>
+        jQuery.extend(jQuery.validator.methods, {
+            range: function (value, element, param) {
+                //Use the Globalization plugin to parse the value
+                var val = $.global.parseFloat(value);
+                return this.optional(element) || (
+                    val >= param[0] && val <= param[1]);
+            }
+        });
+
+        $(document).ready(function () {
+            setMaxLenght();
+            traducaoMsgsDeErro.traduzir();
+        });
+
+        function setMaxLenght() {
+            $("input[data-val-length-max]").each(function () {
+                var $this = $(this);
+                var data = $this.data();
+                $this.attr("maxlength", data.valLengthMax);
+            });
+        }
+
+        $(document).ajaxSend(function (event, request, settings) {
+            //loader(false);
+        });
+
+        $(document).ajaxComplete(function (event, request, settings) {
+            //loader(true);
+            traducaoMsgsDeErro.traduzir();
+            if (request.status == 500)
+                alert("Ocorreu um erro interno, favor recarregar a pagina e tentar novamente.");
+            else if (request.status == 404)
+                alert("Pagina não encontrada.");
+        });
+
+        var traducaoMsgsDeErro = {
+            traduzir: function () {
+                $("form").removeData("validator");
+                traducaoMsgsDeErro.traduzirCampo('data-val-date');
+                traducaoMsgsDeErro.traduzirCampo('data-val-number');
+                if ($.validator)
+                    $.validator.unobtrusive.parse(document);
+            },
+            traduzirCampo: function (propName) {
+                $('input[' + propName + ']').each(function () {
+                    var txt = $(this).attr(propName);
+                    txt = txt.replace('The field', 'O campo').replace('must be', 'deve ser').replace('a number', 'um número').replace('a date', 'uma data');
+                    $(this).attr(propName, txt);
+                });
+            }
+        };
+    </script>
+
 </body>
 </html>

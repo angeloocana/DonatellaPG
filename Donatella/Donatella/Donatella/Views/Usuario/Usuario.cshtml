@@ -1,0 +1,80 @@
+﻿@using Donatella.Models.Enums
+@model Donatella.Models.UsuarioFormViewModel
+
+@{
+    ViewBag.Title = "Usuário";
+}
+
+<div class="bs-docs-section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="forms">Usuário</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well bs-component">
+                @using (Html.BeginForm("Editar", "Usuario", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <legend>Cadastro</legend>
+                        @Html.ValidationSummary(true)
+                       @Html.EditorForModel()
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit" class="btn btn-default">Salvar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if(Model.TipoTelaDeUsuario == TipoTelaDeUsuario.Admin)
+{
+    <div class="bs-component">
+        <ul class="pager">
+            <li class="previous"><a href="@Url.Action("Index")">&larr; Voltar a lista</a></li>
+        </ul>
+    </div>
+}
+else if (Model.TipoTelaDeUsuario == TipoTelaDeUsuario.PrimeiroAcesso)
+{
+    <div class="bs-component">
+        <ul class="pager">
+            <li class="previous"><a href="@Url.Action("Index","Login")">&larr; Voltar</a></li>
+        </ul>
+    </div>
+}
+
+@section scripts
+{
+    @if (Model.TipoTelaDeUsuario == TipoTelaDeUsuario.PrimeiroAcesso)
+    {
+    <script type="text/javascript">
+        $("#SenhaAtual").parent().parent().hide();
+        $("#CargoId").parent().parent().hide();
+        $("#PerfilAcessoId").parent().parent().hide();
+    </script>
+    }
+    else if (Model.TipoTelaDeUsuario == TipoTelaDeUsuario.MeusDados)
+    {
+    <script type="text/javascript">
+        //$("#NovaSenha").parent().parent().hide();
+        //$("#ConfirmaSenha").parent().parent().hide();
+        $("#CargoId").parent().parent().hide();
+        $("#PerfilAcessoId").parent().parent().hide();
+    </script>
+    }
+    else if (Model.TipoTelaDeUsuario == TipoTelaDeUsuario.Admin)
+    {
+        <script type="text/javascript">
+            $("#SenhaAtual").parent().parent().hide();
+        </script>
+    }
+}

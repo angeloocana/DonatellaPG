@@ -18,15 +18,13 @@ namespace Donatella.App.Concrete
     {
         private readonly IRepository<Usuario> _usuarioRepository;
         private readonly IPermissaoApp _permissaoApp;
-        private readonly IUsuarioPerfilAcessoApp _usuarioPerfilAcessoApp;
         private readonly UrlHelper _url;
 
-        public UsuarioApp(IRepository<Usuario> usuarioRepository, IPermissaoApp permissaoApp,
-            IUsuarioPerfilAcessoApp usuarioPerfilAcessoApp)
+        public UsuarioApp(IRepository<Usuario> usuarioRepository,
+            IPermissaoApp permissaoApp)
         {
             _usuarioRepository = usuarioRepository;
             _permissaoApp = permissaoApp;
-            _usuarioPerfilAcessoApp = usuarioPerfilAcessoApp;
             _url = new UrlHelper(HttpContext.Current.Request.RequestContext);
         }
 
@@ -36,7 +34,6 @@ namespace Donatella.App.Concrete
                             where x.Id == usuarioId
                             select new TopoHomeViewModel
                             {
-                                Foto = x.Foto,
                                 Nome = x.Nome
                             }).FirstOrDefault();
 
@@ -50,8 +47,7 @@ namespace Donatella.App.Concrete
         {
             return
                 from x in _usuarioRepository.Get()
-                where x.IsAdmin
-                && x.DtInativacao == null
+                where x.DtInativacao == null
                 select new UsuarioViewModel()
                 {
                     Id = x.Id,
@@ -61,57 +57,29 @@ namespace Donatella.App.Concrete
                 };
         }
 
-        public UsuarioFormViewModel Usuario(int? id)
+        public UsuarioFormViewModel Usuario(int id)
         {
-            var usuario = (
-                from x in _usuarioRepository.Get()
-                where x.Id == id
-                select new UsuarioFormViewModel
-                {
-                    Id = x.Id,
-                    Nome = x.Nome,
-                    Email = x.Email,
-                    Cpf = x.Cpf.ToString(),
-                    CargoId = x.CargoId
-                }).FirstOrDefault() ?? new UsuarioFormViewModel();
-
-            usuario.PerfilAcessoLista = _permissaoApp.TodosOsPerfis();
-            usuario.Perfis = _permissaoApp.PerfisUsuario(usuario.Id);
-
-            return usuario;
+            var usuario = _usuarioRepository.Get(id);
+            return Mapper.Map<UsuarioFormViewModel>(usuario); ;
         }
 
         public Usuario Usuario(Int64 cpf)
         {
             return _usuarioRepository.Get().FirstOrDefault(m => m.Cpf == cpf);
         }
-
+        
         public Usuario Salvar(UsuarioFormViewModel model)
-        {
-            return Salvar(model, true);
-        }
-
-        public Usuario Salvar(UsuarioFormViewModel model, bool userAdmin)
         {
             var usuario = model.Id > 0
                 ? _usuarioRepository.Get(model.Id)
                 : Mapper.Map<UsuarioFormViewModel, Usuario>(model);
 
             if (usuario == null)
-                throw new Exception("Usuario nao encontrado");
+                throw new Exception("Usuario não encontrado");
 
             if (model.Id > 0)
-            {
-                var cargoAntigoId = usuario.CargoId;
                 usuario = Mapper.Map(model, usuario);
-
-                if (usuario.CargoId == 0)
-                    usuario.CargoId = cargoAntigoId;
-            }
-
-            usuario.SenhaBloqueada = false;
-            usuario.ErrosDeSenha = 0;
-
+            
             if (usuario.Id == 0 && model.NovaSenha == null)
                 throw new Exception("A senha é obrigatória");
 
@@ -129,15 +97,12 @@ namespace Donatella.App.Concrete
             else
                 _usuarioRepository.Add(usuario);
 
-            if (userAdmin)
-                _permissaoApp.AtualizarUsuarioPerfilAcesso(model.Perfis, usuario.Id);
-
             _usuarioRepository.Commit();
 
             return usuario;
         }
 
-        public void Apagar(int id)
+        public void Excluir(int id)
         {
             _usuarioRepository.Inativar(id);
             _usuarioRepository.Commit();
@@ -216,7 +181,8 @@ namespace Donatella.App.Concrete
                                FirstName = x.Nome,
                                UserId = x.Id,
                                x.Senha,
-                               x.DtInativacao
+                               x.DtInativacao,
+                               x.PerfilAcessoId
                            }).FirstOrDefault();
 
             if (usuario == null)
@@ -233,7 +199,7 @@ namespace Donatella.App.Concrete
             {
                 UserId = usuario.UserId,
                 FirstName = usuario.FirstName,
-                Roles = _usuarioPerfilAcessoApp.Permissoes(usuario.UserId).Select(x => x.ToString()).ToArray()
+                Roles = _permissaoApp.PermissoesString(usuario.PerfilAcessoId)
             };
         }
     }

@@ -139,8 +139,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Concrete\CarrinhoApp.cs" />
+    <Compile Include="App\Concrete\PedidoApp.cs" />
+    <Compile Include="App\Concrete\ProdutoApp.cs" />
+    <Compile Include="App\Concrete\FormaDePagamentoApp.cs" />
     <Compile Include="App\Concrete\CategoriaApp.cs" />
-    <Compile Include="App\Concrete\EnderecoApp.cs" />
     <Compile Include="App\Concrete\CargoApp.cs" />
     <Compile Include="App\Concrete\FaleConoscoApp.cs" />
     <Compile Include="App\Concrete\FaqApp.cs" />
@@ -150,9 +153,10 @@
     <Compile Include="App\Concrete\RelatorioDeParticipanteApp.cs" />
     <Compile Include="App\Concrete\UsuarioApp.cs" />
     <Compile Include="App\Concrete\ParticipanteApp.cs" />
-    <Compile Include="App\Concrete\UsuarioPerfilAcessoApp.cs" />
+    <Compile Include="App\Interface\ICarrinhoApp.cs" />
+    <Compile Include="App\Interface\IProdutoApp.cs" />
+    <Compile Include="App\Interface\IFormaDePagamentoApp.cs" />
     <Compile Include="App\Interface\ICatergoriaApp.cs" />
-    <Compile Include="App\Interface\IEnderecoApp.cs" />
     <Compile Include="App\Interface\ICargoApp.cs" />
     <Compile Include="App\Interface\IFaleConoscoApp.cs" />
     <Compile Include="App\Interface\IFaqApp.cs" />
@@ -160,28 +164,26 @@
     <Compile Include="App\Interface\IMensagemApp.cs" />
     <Compile Include="App\Interface\IPermissaoApp.cs" />
     <Compile Include="App\Interface\IRelatorioDeParticipanteApp.cs" />
-    <Compile Include="App\Interface\IUsuarioPerfilAcessoApp.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Areas\Admin\Controllers\FaqController.cs" />
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Admin\Controllers\RelatorioDeAcessoController.cs" />
     <Compile Include="Areas\Admin\Controllers\RelatorioDeParticipanteController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CadastroController.cs" />
-    <Compile Include="Controllers\CargoController.cs" />
+    <Compile Include="Controllers\CarrinhoController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\FormaDePagamentoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\ErroController.cs" />
     <Compile Include="Controllers\EsqueceuSenhaController.cs" />
     <Compile Include="Controllers\FaqController.cs" />
-    <Compile Include="Controllers\FormaDePagamentoController.cs" />
-    <Compile Include="Controllers\FuncionarioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MeusDadosController.cs" />
     <Compile Include="Data\Entities\Cargo.cs" />
     <Compile Include="Data\Entities\Carrinho.cs" />
     <Compile Include="Data\Entities\Categoria.cs" />
-    <Compile Include="Data\Entities\Endereco.cs" />
     <Compile Include="Data\Entities\Estado.cs" />
     <Compile Include="Data\Entities\Faq.cs" />
     <Compile Include="Data\Entities\FaqGrupo.cs" />
@@ -194,12 +196,10 @@
     <Compile Include="Data\Entities\Permissao.cs" />
     <Compile Include="Data\Entities\Produto.cs" />
     <Compile Include="Data\Entities\StatusPedido.cs" />
-    <Compile Include="Data\Entities\UsuarioPerfilAcesso.cs" />
     <Compile Include="Data\Scripts\EstadosSeed.cs" />
     <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
     <Compile Include="Filters\LogActionFilter.cs" />
     <Compile Include="App\Interface\IUsuarioApp.cs" />
-    <Compile Include="App\Interface\IParticipanteApp.cs" />
     <Compile Include="App\Concrete\Repository.cs" />
     <Compile Include="App\Interface\IRepository.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -208,7 +208,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\FaleConoscoController.cs" />
     <Compile Include="Data\Entities\FaleConosco.cs" />
     <Compile Include="Data\Entities\Log.cs" />
@@ -220,7 +219,8 @@
     <Compile Include="Helpers\UsuarioLogado.cs" />
     <Compile Include="Infrastructure\Adapters\MyRequiredAttributeAdapter .cs" />
     <Compile Include="Models\Binders\MyDateTimeModelBinder .cs" />
-    <Compile Include="Models\Cadastro\CadastroViewModel.cs" />
+    <Compile Include="Models\Categorias\CategoriaProdutosViewModel.cs" />
+    <Compile Include="Models\FormaDePagamentos\FormaDePagamentoViewModel.cs" />
     <Compile Include="Models\Categorias\CagegoriaViewModel.cs" />
     <Compile Include="Models\Cargos\CargoViewModel.cs" />
     <Compile Include="Models\Enums\MsgErro.cs" />
@@ -263,7 +263,7 @@
     <Compile Include="Models\Enums\TipoAcesso.cs" />
     <Compile Include="Models\Enums\TipoArea.cs" />
     <Compile Include="Models\Enums\TipoSexo.cs" />
-    <Compile Include="Models\Enums\TipoTelaDeCadastro.cs" />
+    <Compile Include="Models\Enums\TipoTelaDeUsuario.cs" />
     <Compile Include="Models\Enums\Uf.cs" />
     <Compile Include="Models\EsqueceuSenha\EsqueceuSenhaFormViewModel.cs" />
     <Compile Include="Models\EsqueceuSenha\TrocaSenhaFormViewModel.cs" />
@@ -276,14 +276,17 @@
     <Compile Include="Models\MyCheckBoxList.cs" />
     <Compile Include="Models\Participante\ParticipanteViewModel.cs" />
     <Compile Include="Models\Participante\TopoHomeViewModel.cs" />
+    <Compile Include="Models\Carrinhos\CarrinhoProdutoViewModel.cs" />
+    <Compile Include="Models\Carrinhos\CarrinhoViewModel.cs" />
     <Compile Include="Models\Permissoes\PerfilAcessoFormViewModel.cs" />
     <Compile Include="Models\Permissoes\PerfilAcessoViewModel.cs" />
     <Compile Include="Models\Permissoes\PermissaoViewModel.cs" />
+    <Compile Include="Models\Produtos\ProdutoFormViewModel.cs" />
+    <Compile Include="Models\Produtos\ProdutoViewModel.cs" />
     <Compile Include="Models\Relatorios\RelatorioDeAcessoViewModel.cs" />
     <Compile Include="Models\Relatorios\RelatorioDeParticipanteFormViewModel.cs" />
     <Compile Include="Models\Relatorios\RelatorioDeParticipanteViewModel.cs" />
     <Compile Include="Models\Relatorios\RelatoriosDeAcessoFormViewModel.cs" />
-    <Compile Include="Models\Usuario\UsuarioPerfilAcessoViewModel.cs" />
     <Compile Include="Models\Usuario\UsuarioFormViewModel.cs" />
     <Compile Include="Models\Usuario\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -376,7 +379,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Usuario\CadastroUsuario.cshtml" />
     <Content Include="Scripts\globalize\cultures\globalize.culture.af-ZA.js" />
     <Content Include="Scripts\globalize\cultures\globalize.culture.af.js" />
     <Content Include="Scripts\globalize\cultures\globalize.culture.am-ET.js" />
@@ -737,7 +739,6 @@
     <Content Include="Areas\Admin\Views\Home\Home.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Menu.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Topo.cshtml" />
-    <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Perfil\ListaPerfilAcesso.cshtml" />
     <Content Include="Areas\Admin\Views\Faq\CadastrarFaq.cshtml" />
     <Content Include="Areas\Admin\Views\Faq\ListarFaq.cshtml" />
@@ -787,12 +788,20 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Cargo\Cargo.cshtml" />
     <Content Include="Views\Cargo\Cargos.cshtml" />
-    <Content Include="Views\FormaDePagamento\FormaDePagamento.cshtml" />
-    <Content Include="Views\FormaDePagamento\FormasDePagamento.cshtml" />
-    <Content Include="Views\Funcionario\Funcionario.cshtml" />
-    <Content Include="Views\Funcionario\Funcionarios.cshtml" />
+    <Content Include="Views\Usuario\Usuario.cshtml" />
+    <Content Include="Views\Usuario\Usuarios.cshtml" />
     <Content Include="Views\Categoria\Categoria.cshtml" />
     <Content Include="Views\Categoria\Categorias.cshtml" />
+    <Content Include="Views\FormaDePagamento\FormaDePagamento.cshtml" />
+    <Content Include="Views\FormaDePagamento\FormaDePagamentos.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PerfilAcessoId.cshtml" />
+    <Content Include="Views\Produto\Produto.cshtml" />
+    <Content Include="Views\Produto\Produtos.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CategoriaId.cshtml" />
+    <Content Include="Views\Pedido\Pedido.cshtml" />
+    <Content Include="Views\Carrinho\_Carrinho.cshtml" />
+    <Content Include="Views\Carrinho\Carrinho.cshtml" />
     <None Include="Web References\br.com.alquimiacrm.www\cep.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -822,7 +831,6 @@
     <Content Include="Views\Shared\EditorTemplates\Assunto.cshtml" />
     <Content Include="Views\FaleConosco\FaleConoscoOk.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Cadastro\Cadastro.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FaqGrupoId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Uf.cshtml" />
     <Content Include="Views\EsqueceuSenha\EsqueceuSenha.cshtml" />
@@ -889,7 +897,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:666/</IISUrl>
+          <IISUrl>http://localhost:1666/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

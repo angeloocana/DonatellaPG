@@ -4,7 +4,7 @@ namespace Donatella.Models
 {
     public class LoginFormViewModel
     {
-        [Required]
+        [Required, Display(Name = "Login (CPF)")]
         public virtual string Login { get; set; }
 
         [Required]

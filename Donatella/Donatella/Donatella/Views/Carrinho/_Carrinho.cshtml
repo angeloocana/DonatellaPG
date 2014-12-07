@@ -1,0 +1,44 @@
+﻿@model Donatella.Models.Pedidos.CarrinhoViewModel
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Produtos)
+        {
+            <tr>
+                <td>
+                    @item.Produto
+                </td>
+                <td>
+                    @item.Preco
+                </td>
+                <td>
+                    <input type="text" id="@("qtdProdutoCarrinho" + item.Id)" value="@item.Qtd" />
+                </td>
+                <td>
+                    @item.Total
+                </td>
+                <td>
+                    <a href="javaScript:void(0);" onclick="removeCarrinho(@item.Id, $('@("#qtdProdutoCarrinho" + item.Id)').val());" class="btn btn-primary" href="#"><i class="icon-remove icon-white"></i> Remover do Carrinho</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h6>
+    Taxa de Entrega: @Model.TaxaDeEntrega
+</h6>
+<h5>
+    <b>Total: @Model.Total </b>
+</h5>
+<a href="javaScript:void(0);" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i> Fechar Pedido</a>
+<a href="javaScript:void(0);" onclick="cleanCarrinho();" class="btn btn-danger">Limpar Carrinho</a>
+

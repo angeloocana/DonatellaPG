@@ -12,5 +12,7 @@ namespace Donatella.App.Interface
         void Excluir(int categoriaId);
         CategoriaViewModel Categoria(int id);
         IEnumerable<Categoria> Categorias();
+
+        IEnumerable<CategoriaProdutosViewModel> Produtos();
     }
 }

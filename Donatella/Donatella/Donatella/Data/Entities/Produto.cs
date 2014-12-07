@@ -13,6 +13,9 @@ namespace Donatella.Data.Entities
         [StringLength(150)]
         [Required]
         public virtual string NomeProduto { get; set; }
+
+        public string Descricao { get; set; }
+
         public virtual decimal? PrecoDe { get; set; }
         [Required]
         public virtual decimal Preco { get; set; }
@@ -20,7 +23,5 @@ namespace Donatella.Data.Entities
         [ForeignKey("Categoria")]
         public virtual int? CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; }
-        
-        public virtual bool Adicional { get; set; }
     }
 }

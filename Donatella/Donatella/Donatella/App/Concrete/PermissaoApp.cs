@@ -13,14 +13,12 @@ namespace Donatella.App.Concrete
 {
     public class PermissaoApp : IPermissaoApp
     {
-        private readonly IRepository<UsuarioPerfilAcesso> _usuarioPerfilAcessoRepository;
         private readonly IRepository<PerfilAcesso> _perfilAcessoRepository;
         private readonly IRepository<PerfilAcessoPermissao> _perfilAcessoPermissaoRepository;
 
-        public PermissaoApp(IRepository<UsuarioPerfilAcesso> usuarioPerfilAcessoRepository, IRepository<PerfilAcesso> PerfilAcessoRepository,
+        public PermissaoApp(IRepository<PerfilAcesso> PerfilAcessoRepository,
            IRepository<PerfilAcessoPermissao> perfilAcessoPermissaoRepository)
         {
-            _usuarioPerfilAcessoRepository = usuarioPerfilAcessoRepository;
             _perfilAcessoRepository = PerfilAcessoRepository;
             _perfilAcessoPermissaoRepository = perfilAcessoPermissaoRepository;
         }
@@ -68,49 +66,8 @@ namespace Donatella.App.Concrete
                 });
         }
 
-        public IEnumerable<UsuarioPerfilAcessoViewModel> TodosOsPerfis()
-        {
-            return
-                (from x in _perfilAcessoRepository.Get()
-                 select new UsuarioPerfilAcessoViewModel
-                 {
-                     PerfilAcesso = x
-                 });
-        }
-
-        public IEnumerable<int> PerfisUsuario(int usuarioId)
-        {
-            return
-               (from x in _usuarioPerfilAcessoRepository.Get()
-                where x.UsuarioId == usuarioId
-                select x.PerfilAcessoId).ToList();
-        }
-
-        public IEnumerable<PerfilAcesso> PerfilPermissoes(int usuarioId)
-        {
-            return
-               (from x in _usuarioPerfilAcessoRepository.Get()
-                where x.UsuarioId == usuarioId
-                select x.PerfilAcesso);
-        }
-
-        public IEnumerable<PermissaoViewModel> PermissoesUsuario(int usuarioId)
-        {
-            var todasAsPermissoes = TodasAsPermissoes();
-            var permissoesUsuario = PerfilPermissoes(usuarioId).Select(x => x.Permissoes);
-
-            foreach (var permissaoViewModel in todasAsPermissoes)
-            {
-                permissaoViewModel.Possui = permissoesUsuario.Any(x => x.Any(p => p.Permissao == permissaoViewModel.Permissao));
-            }
-
-            return todasAsPermissoes;
-        }
-
-
         public void SalvarPerfil(PerfilAcessoFormViewModel model)
         {
-
             var perfil = model.Id > 0 ? _perfilAcessoRepository.Get(model.Id) : new PerfilAcesso();
 
             perfil.Perfil = model.Perfil;
@@ -201,39 +158,31 @@ namespace Donatella.App.Concrete
             _perfilAcessoRepository.Commit();
         }
 
-        public void ExcluirUsuarioPerfilAcesso(IEnumerable<int> Perfis, int UsuarioId)
+        public IEnumerable<Permissoes> Permissoes(int perfilId)
         {
-            var excluirUsuarioPerfisAcessos = (from x in _usuarioPerfilAcessoRepository.Get()
-                                               where x.UsuarioId == UsuarioId
-                                               && !Perfis.Contains(x.PerfilAcessoId)
-                                               select x);
-
-            _usuarioPerfilAcessoRepository.DeleteAll(excluirUsuarioPerfisAcessos);
+            return from x in _perfilAcessoPermissaoRepository.Get()
+                   where x.PerfilAcessoId == perfilId
+                   select x.Permissao;
         }
 
-        public void AdicionarUsuarioPerfilAcesso(IEnumerable<int> Perfis, int UsuarioId)
+        public string[] PermissoesString(int? perfilId)
         {
-            var perfisJaCadastrados = (from x in _usuarioPerfilAcessoRepository.Get()
-                                       where x.UsuarioId == UsuarioId
-                                       select x.PerfilAcessoId);
-
-            var perfisCadastrar = (from x in Perfis
-                                   where !perfisJaCadastrados.Contains(x)
-                                   select new UsuarioPerfilAcesso
-                                   {
-                                       PerfilAcessoId = x,
-                                       UsuarioId = UsuarioId
-                                   });
-
-            _usuarioPerfilAcessoRepository.AddAll(perfisCadastrar);
+            if(perfilId == null)
+                return null;
+            var permissoes = Permissoes(perfilId.Value);
+            return permissoes.Select(x => x.ToString()).ToArray();
         }
 
-        public void AtualizarUsuarioPerfilAcesso(IEnumerable<int> Perfis, int UsuarioId)
+        public Dictionary<int, string> Combo()
         {
-            ExcluirUsuarioPerfilAcesso(Perfis, UsuarioId);
-            AdicionarUsuarioPerfilAcesso(Perfis, UsuarioId);
-
-            _usuarioPerfilAcessoRepository.Commit();
+            return (from x in _perfilAcessoRepository.Get()
+                    where x.DtInativacao == null
+                    orderby x.Perfil
+                    select new
+                    {
+                        x.Perfil,
+                        x.Id
+                    }).ToDictionary(x => x.Id, x => x.Perfil);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Donatella
@@ -19,7 +15,7 @@ namespace Donatella
                 url: "EsqueceuSenha/TrocaSenha/{token}",
                 defaults: new { controller = "EsqueceuSenha", action = "TrocaSenha" }
             );
-
+            
             routes.MapRoute(
                 namespaces: new[] { "Donatella.Controllers" },
                 name: "Default",

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace Donatella.Data.Entities
 {
     public class FormaDePagamento : EntityBase
     {
-        public virtual string Descricao { get; set; }
-        public virtual bool Ativo { get; set; }
-
+        public virtual string NomeFormaDePagamento { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }

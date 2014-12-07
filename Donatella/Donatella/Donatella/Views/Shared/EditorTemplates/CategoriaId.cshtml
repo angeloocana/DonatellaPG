@@ -1,0 +1,19 @@
+﻿@using Donatella.App.Interface
+@using Donatella.Models.Enums
+@using StructureMap
+@model int?
+
+@{
+    var app = ObjectFactory.GetInstance<ICategoriaApp>();
+    var lista = app.Combo().Select(c => new SelectListItem
+    {
+        Text = c.Value,
+        Value = c.Key.ToString(),
+        Selected = c.Key == Model
+    }).ToList();
+
+    lista.Add(new SelectListItem { Text = " [Selecione] ", Value = "" });
+
+}
+
+@Html.DropDownList("", lista.OrderBy(c => c.Text), new { @class = "form-control" })
