@@ -786,7 +786,6 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Views\Shared\_Cadastro.cshtml" />
     <Content Include="Views\Home\Topo.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Erro\Erro.cshtml" />
@@ -851,7 +850,6 @@
     <Content Include="Views\Faq\Index.cshtml" />
     <Content Include="Views\EsqueceuSenha\TrocaSenha.cshtml" />
     <Content Include="Views\EsqueceuSenha\TrocaSenhaOk.cshtml" />
-    <Content Include="Views\Shared\_Endereco.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TipoArea.cshtml" />
     <None Include="Web References\br.com.alquimiacrm.www\cep.wsdl" />
     <Content Include="Web References\br.com.alquimiacrm.www\DadosEndereco.datasource">

@@ -16,10 +16,10 @@ namespace Donatella.App.Concrete
         private readonly IRepository<PerfilAcesso> _perfilAcessoRepository;
         private readonly IRepository<PerfilAcessoPermissao> _perfilAcessoPermissaoRepository;
 
-        public PermissaoApp(IRepository<PerfilAcesso> PerfilAcessoRepository,
+        public PermissaoApp(IRepository<PerfilAcesso> perfilAcessoRepository,
            IRepository<PerfilAcessoPermissao> perfilAcessoPermissaoRepository)
         {
-            _perfilAcessoRepository = PerfilAcessoRepository;
+            _perfilAcessoRepository = perfilAcessoRepository;
             _perfilAcessoPermissaoRepository = perfilAcessoPermissaoRepository;
         }
 

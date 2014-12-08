@@ -85,8 +85,13 @@ namespace Donatella.App.Concrete
                 throw new Exception("Usuario não encontrado");
 
             if (model.Id > 0)
+            {
+                var perfilAcessoId = usuario.PerfilAcessoId;
                 usuario = Mapper.Map(model, usuario);
-            
+                if (model.TipoTelaDeUsuario != TipoTelaDeUsuario.Admin)
+                    usuario.PerfilAcessoId = perfilAcessoId;
+            }
+
             if (usuario.Id == 0 && model.NovaSenha == null)
                 throw new Exception("A senha é obrigatória");
 
