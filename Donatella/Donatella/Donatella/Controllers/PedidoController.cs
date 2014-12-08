@@ -81,7 +81,7 @@ namespace Donatella.Controllers
         {
             model.IsAdmin = true;
             var pedidos = _pedidoApp.Pedidos(null, model);
-            return View("_BuscaPedido", pedidos);
+            return PartialView("_BuscaPedido", pedidos);
         }
     }
 }

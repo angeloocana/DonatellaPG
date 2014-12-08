@@ -10,7 +10,7 @@
 
             @if (UsuarioLogado.TemPermissao(Permissoes.Admin))
             {
-                <li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>
+                @*<li>@Html.ActionLink("Cargos", "Index", "Cargo")</li>*@
                 <li>@Html.ActionLink("Categorias", "Index", "Categoria")</li>
                 <li>@Html.ActionLink("Formas de pagamento", "Index", "FormaDePagamento")</li>
                 <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
