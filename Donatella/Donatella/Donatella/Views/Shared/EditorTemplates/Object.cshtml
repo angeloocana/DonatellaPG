@@ -11,14 +11,14 @@
     else
     {
         <div class="form-group">
-            <label for="@prop.PropertyName" class="col-md-2 control-label">
+            <label for="@prop.PropertyName" class="col-md-3 control-label">
                 @(string.IsNullOrEmpty(prop.DisplayName) ? prop.PropertyName : prop.DisplayName)
                 @if (prop.IsRequired)
                 {
                     <span class="required">*</span>
                 }
             </label>
-            <div class="col-lg-10">
+            <div class="col-lg-9">
                 @Html.Editor(prop.PropertyName)
                 @Html.ValidationMessage(prop.PropertyName)
             </div>
