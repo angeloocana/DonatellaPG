@@ -11,6 +11,7 @@ using Donatella.Models.Enums;
 using Donatella.Models.Login;
 using System.Web.Mvc;
 using System.Web;
+using Donatella.Models.Pedidos;
 
 namespace Donatella.App.Concrete
 {
@@ -60,7 +61,13 @@ namespace Donatella.App.Concrete
         public UsuarioFormViewModel Usuario(int id)
         {
             var usuario = _usuarioRepository.Get(id);
-            return Mapper.Map<UsuarioFormViewModel>(usuario); ;
+            return Mapper.Map<UsuarioFormViewModel>(usuario);
+        }
+
+        public FecharPedidoFormViewModel DadosParaFecharPedido(int id)
+        {
+            var usuario = _usuarioRepository.Get(id);
+            return Mapper.Map<FecharPedidoFormViewModel>(usuario); ;
         }
 
         public Usuario Usuario(Int64 cpf)

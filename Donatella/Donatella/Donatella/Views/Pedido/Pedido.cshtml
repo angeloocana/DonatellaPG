@@ -43,10 +43,10 @@
                                         @item.Descricao
                                     </td>
                                     <td>
-                                        <input type="text" id="@("qtdProduto" + item.Id)" value="1" />
+                                        <input type="text" id="@("qtdProduto" + item.Id)" value="1" class="txtQtd" />
                                     </td>
                                     <td>
-                                        <a href="javaScript:void(0);" onclick="addCarrinho(@item.Id, $('@("#qtdProduto" + item.Id)').val());" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i> Adcionar ao Carrinho</a>
+                                        <a href="javaScript:void(0);" onclick="addCarrinho(@item.Id, $('@("#qtdProduto" + item.Id)').val());" class="btn btn-success" style="text-decoration: none;">Adcionar ao Carrinho</a>
                                     </td>
                                 </tr>
                             }

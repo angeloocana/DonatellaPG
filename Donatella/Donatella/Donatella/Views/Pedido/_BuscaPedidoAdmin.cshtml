@@ -1,0 +1,22 @@
+﻿@using Donatella.Models.Enums
+@model Donatella.Models.Pedidos.PedidoViewModel
+
+
+<h4>Dados de Entrega</h4>
+<p>
+    @Model.Nome @Model.Email<br />
+    Cpf: @Model.Cpf<br />
+    @Model.Logradouro @Model.Numero @Model.Complemento, @Model.Bairro, @Model.Cidade - @Model.Uf <br />
+    @Model.Telefone @Model.Celular <br />
+</p>
+
+<div class="form-group">
+    <label class="col-md-2 control-label">
+        Status
+    </label>
+    <div class="col-lg-10">
+        @Html.EditorFor(m => m.Status, "MudaStatusPedido", "statusPedido" + Model.Id)
+    </div>
+</div>
+<button type="button" onclick="mudarStatusPedido(@Model.Id);" class="btn btn-success">Mudar Status</button>
+

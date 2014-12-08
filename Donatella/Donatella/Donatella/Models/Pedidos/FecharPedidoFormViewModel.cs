@@ -1,26 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Donatella.Data.Entities;
+using Donatella.Infrastructure.Mapping;
 using Donatella.Models.Enums;
 
-namespace Donatella.Data.Entities
+namespace Donatella.Models.Pedidos
 {
-    public class Pedido : EntityBase
+    public class FecharPedidoFormViewModel : IHaveCustomMappings
     {
-        [Required]
-        public virtual decimal ValorTotal { get; set; }
-
-        [ForeignKey("FormaDePagamento")]
-        public int FormaDePagamentoId { get; set; }
-        public virtual FormaDePagamento FormaDePagamento { get; set; }
-        
-        [ForeignKey("Usuario")]
-        public int UsuarioId { get; set; }
-        public virtual Usuario Usuario { get; set; }
-
-        public TipoStatusPedido StatusPedido { get; set; }
-        public virtual int? NotaAvaliacao { get; set; }
-
         [Required, Display(Name = "Telefone")]
         public string Telefone { get; set; }
 
@@ -47,11 +33,19 @@ namespace Donatella.Data.Entities
 
         [MaxLength(12), Display(Name = "CEP"), Required]
         public virtual string Cep { get; set; }
-        
+
+        [Required]
+        [DataType("FormaDePagamentoId"), Display(Name = "Forma de Pagamento")]
+        public int FormaDePagamentoId { get; set; }
+
         [Display(Name = "CPF na nota?")]
         public bool TemCpfNaNota { get; set; }
         public string Cpf { get; set; }
 
-        public virtual ICollection<PedidoProduto> Produtos { get; set; }
+        public void CreateMappings(AutoMapper.IConfiguration configuration)
+        {
+            configuration.CreateMap<Usuario, FecharPedidoFormViewModel>();
+            configuration.CreateMap<FecharPedidoFormViewModel, Pedido>();
+        }
     }
 }

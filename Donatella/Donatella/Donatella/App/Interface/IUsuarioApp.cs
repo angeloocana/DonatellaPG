@@ -4,11 +4,13 @@ using Donatella.Data.Entities;
 using Donatella.Models;
 using Donatella.Models.Enums;
 using Donatella.Models.Login;
+using Donatella.Models.Pedidos;
 
 namespace Donatella.App.Interface
 {
     public interface IUsuarioApp
     {
+        FecharPedidoFormViewModel DadosParaFecharPedido(int id);
         TopoHomeViewModel Topo(int usuarioId, int participanteId);
         void ValidarSenha(int usuarioId, string senha);
         Usuario Salvar(UsuarioFormViewModel usuario);

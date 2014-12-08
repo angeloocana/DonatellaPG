@@ -40,7 +40,7 @@ namespace Donatella.Models
         [Required, Display(Name = "Telefone")]
         public string Telefone { get; set; }
 
-        [Required, Display(Name = "Celular")]
+        [Display(Name = "Celular")]
         public string Celular { get; set; }
 
         [MaxLength(150), Display(Name = "Endereço"), Required]

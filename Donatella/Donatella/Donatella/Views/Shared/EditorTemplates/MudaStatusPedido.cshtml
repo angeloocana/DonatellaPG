@@ -1,0 +1,12 @@
+﻿@using Donatella.Models.Enums
+@model TipoStatusPedido?
+@{
+    var status = Enum.GetValues(typeof(TipoStatusPedido)).Cast<TipoStatusPedido>().Select(s => new SelectListItem
+    {
+        Text = EnumHelper<TipoStatusPedido>.GetDisplayValue(s),
+        Value = s.ToString(),
+        Selected = s == Model
+    }).ToList();
+}
+
+@Html.DropDownList("", status, new { @class = "form-control" })

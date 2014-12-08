@@ -21,13 +21,13 @@
                     @item.Preco
                 </td>
                 <td>
-                    <input type="text" id="@("qtdProdutoCarrinho" + item.Id)" value="@item.Qtd" />
+                    <input type="text" id="@("qtdProdutoCarrinho" + item.Id)" value="@item.Qtd" class="txtQtd" />
                 </td>
                 <td>
                     @item.Total
                 </td>
                 <td>
-                    <a href="javaScript:void(0);" onclick="removeCarrinho(@item.Id, $('@("#qtdProdutoCarrinho" + item.Id)').val());" class="btn btn-primary" href="#"><i class="icon-remove icon-white"></i> Remover do Carrinho</a>
+                    <a href="javaScript:void(0);" onclick="removeCarrinho(@item.Id, $('@("#qtdProdutoCarrinho" + item.Id)').val());" class="btn btn-primary" style="text-decoration: none;">Remover do Carrinho</a>
                 </td>
             </tr>
         }
@@ -39,6 +39,20 @@
 <h5>
     <b>Total: @Model.Total </b>
 </h5>
-<a href="javaScript:void(0);" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i> Fechar Pedido</a>
+
+<a href="javaScript:void(0);" class="btn btn-success" onclick="fecharPedido();">Fechar Pedido</a>
 <a href="javaScript:void(0);" onclick="cleanCarrinho();" class="btn btn-danger">Limpar Carrinho</a>
 
+<div id="divFecharPedido"></div>
+
+<script type="text/javascript">
+    function fecharPedido() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("FecharPedido", "Pedido")',
+                success: function (retorno) {
+                    $("#divFecharPedido").html(retorno);
+                }
+            });
+    }
+</script>

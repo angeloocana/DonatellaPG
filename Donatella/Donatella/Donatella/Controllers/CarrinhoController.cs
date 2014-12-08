@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
 using Donatella.App.Interface;
+using Donatella.Filters;
 using Donatella.Helpers;
 
 namespace Donatella.Controllers
 {
+    [CustomAuthorize]
     public class CarrinhoController : BaseController
     {
         private readonly ICarrinhoApp _carrinhoApp;

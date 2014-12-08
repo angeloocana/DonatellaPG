@@ -1,0 +1,58 @@
+﻿@model Donatella.Models.Pedidos.FecharPedidoFormViewModel
+
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-6">
+        <div class="well bs-component">
+            @using (Html.BeginForm("FecharPedido", "Pedido", FormMethod.Post, new { @class = "form-horizontal", id = "frmFecharPedido" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Dados de entrega e Forma de Pagamento</legend>
+                    @Html.ValidationSummary(true)
+                    @Html.EditorForModel()
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="button" onclick="fecharPedidoEnviarForm();" class="btn btn-success">Confirmar Pedido</button>
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#TemCpfNaNota").change(function () {
+            cpfNaNota();
+        });
+        cpfNaNota();
+    });
+
+    function cpfNaNota() {
+        if ($("#TemCpfNaNota").val() == "true") {
+            $("#Cpf").parent().parent().show();
+        } else {
+            $("#Cpf").parent().parent().hide();
+        }
+    }
+
+    function fecharPedidoEnviarForm() {
+        if (!$('#frmFecharPedido').valid())
+            return;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("FecharPedido", "Pedido")',
+            data: $("#frmFecharPedido").serialize(),
+            success: function (retorno) {
+                if (retorno == "OK")
+                    retorno = "Pedido finalizado com sucesso, Aguarde a confirmação pela loja!";
+                alert(retorno);
+                window.location = '@Url.Action("MeusPedidos","Pedido")';
+            }
+        });
+    }
+</script>

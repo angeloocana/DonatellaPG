@@ -153,6 +153,7 @@
     <Compile Include="App\Concrete\RelatorioDeParticipanteApp.cs" />
     <Compile Include="App\Concrete\UsuarioApp.cs" />
     <Compile Include="App\Concrete\ParticipanteApp.cs" />
+    <Compile Include="App\Interface\IPedidoApp.cs" />
     <Compile Include="App\Interface\ICarrinhoApp.cs" />
     <Compile Include="App\Interface\IProdutoApp.cs" />
     <Compile Include="App\Interface\IFormaDePagamentoApp.cs" />
@@ -219,6 +220,11 @@
     <Compile Include="Helpers\UsuarioLogado.cs" />
     <Compile Include="Infrastructure\Adapters\MyRequiredAttributeAdapter .cs" />
     <Compile Include="Models\Binders\MyDateTimeModelBinder .cs" />
+    <Compile Include="Models\Carrinhos\BuscaPedidoFormViewModel.cs" />
+    <Compile Include="Models\Carrinhos\BuscaPedidoViewModel.cs" />
+    <Compile Include="Models\Carrinhos\PedidoViewModel.cs" />
+    <Compile Include="Models\Enums\TipoStatusPedido.cs" />
+    <Compile Include="Models\Pedidos\FecharPedidoFormViewModel.cs" />
     <Compile Include="Models\Categorias\CategoriaProdutosViewModel.cs" />
     <Compile Include="Models\FormaDePagamentos\FormaDePagamentoViewModel.cs" />
     <Compile Include="Models\Categorias\CagegoriaViewModel.cs" />
@@ -780,7 +786,6 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Views\MeusDados\MeusDados.cshtml" />
     <Content Include="Views\Shared\_Cadastro.cshtml" />
     <Content Include="Views\Home\Topo.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
@@ -802,6 +807,14 @@
     <Content Include="Views\Pedido\Pedido.cshtml" />
     <Content Include="Views\Carrinho\_Carrinho.cshtml" />
     <Content Include="Views\Carrinho\Carrinho.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FormaDePagamentoId.cshtml" />
+    <Content Include="Views\Pedido\_FecharPedido.cshtml" />
+    <Content Include="Views\Pedido\MeusPedidos.cshtml" />
+    <Content Include="Views\Pedido\Pedidos.cshtml" />
+    <Content Include="Views\Pedido\_BuscaPedido.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\StatusPedido.cshtml" />
+    <Content Include="Views\Pedido\_BuscaPedidoAdmin.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MudaStatusPedido.cshtml" />
     <None Include="Web References\br.com.alquimiacrm.www\cep.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

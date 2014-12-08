@@ -5,7 +5,7 @@ using Donatella.Infrastructure.Mapping;
 
 namespace Donatella.Models.FormaDePagamentos
 {
-    public class FormaDePagamentoViewModel : IMapFrom<Categoria>
+    public class FormaDePagamentoViewModel : IMapFrom<FormaDePagamento>
     {
         [HiddenInput]
         public int Id { get; set; }
