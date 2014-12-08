@@ -16,7 +16,9 @@ namespace Donatella.Data.Entities
 
         public string Descricao { get; set; }
 
+        [Display(Name = "Preço De")]
         public virtual decimal? PrecoDe { get; set; }
+
         [Required]
         public virtual decimal Preco { get; set; }
 
